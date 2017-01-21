@@ -20,13 +20,19 @@ public enum ModSpot
 
 public abstract class Mod : MonoBehaviour
 {
-
     public ModSpot myModSpot;
+    public bool isAttached;
+    [SerializeField] protected JoystickMovement joystickMovement;
+
+    private void Awake()
+    {
+
+    }
 
     // Use this for initialization
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -43,4 +49,13 @@ public abstract class Mod : MonoBehaviour
     }
 
     public abstract void Activate();
+    public virtual void Attach(JoystickMovement joystickMovement) {
+        this.joystickMovement = joystickMovement;
+        isAttached = true;
+    }
+
+    public virtual void Dettach() {
+        joystickMovement = null;
+        isAttached = false;
+    }
 }

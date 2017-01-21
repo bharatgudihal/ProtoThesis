@@ -6,7 +6,7 @@ public class BombGun : Gun
 {
 	void Update () 
 	{
-		if (Input.GetKey (KeyCode.Space)  && IsActive == true) 
+		if (Input.GetKey (input)  && IsActive == true) 
 		{ 
 			Mode();
 		}
@@ -21,7 +21,9 @@ public class BombGun : Gun
 		else 
 		{
 			TimeCounting = 0.0f;
-			Instantiate (bullet, transform.localPosition, Quaternion.identity);
+			Quaternion rotation = transform.rotation * i_CharObject.transform.rotation;
+			Instantiate (bullet, transform.position, i_CharObject.transform.rotation);
+			StartCoroutine (Recoil ());
 		}
 	}
 }

@@ -12,7 +12,7 @@ public class JoystickMovement : MonoBehaviour {
     #region Privates
 
     [SerializeField]
-    private Vector3 velocity;
+    public Vector3 velocity;
     private Rigidbody rigid;
     private float rigidY;
     #endregion
@@ -22,17 +22,30 @@ public class JoystickMovement : MonoBehaviour {
         rigid = GetComponent<Rigidbody>();
     }
 
+    public void EnableMovement() {
+        canMove = true;
+    }
+
+    public void Dash(Vector3 moveVec) {
+        rigid.AddForce(moveVec);
+        canMove = false;
+    }
+
     // Use this for initialization
     void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    private bool canMove = true;
+    // Update is called once per frame
+    void Update () {
 
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(h, 0.0f, v);
+        if (!canMove) {
+            movement = Vector3.zero;
+        }
         rigidY = rigid.velocity.y;
 
         velocity = rigid.velocity;
