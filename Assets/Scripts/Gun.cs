@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-	public bool IsActive;
 	public GameObject bullet;
+	public bool IsActive;
 	public float Frequency;
 	public float RecoilForce = 200;
 
@@ -21,6 +21,6 @@ public class Gun : MonoBehaviour
 	{
 		GetComponent<Rigidbody> ().AddForce (transform.forward * -RecoilForce);
 		yield return new WaitForSeconds(2);
-		GetComponent<Rigidbody> ().AddForce (transform.forward * RecoilForce);
+		GetComponent<Rigidbody> ().AddForce (transform.forward *  RecoilForce);
 	}
 }

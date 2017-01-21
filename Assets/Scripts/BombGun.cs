@@ -21,7 +21,7 @@ public class BombGun : Gun
 		else 
 		{
 			TimeCounting = 0.0f;
-			Instantiate (bullet, transform.localPosition, Quaternion.identity);
+			Instantiate (bullet, transform.localPosition, transform.rotation);
 			StartCoroutine (Recoil ());
 		}
 	}

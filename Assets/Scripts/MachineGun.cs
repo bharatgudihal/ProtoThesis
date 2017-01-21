@@ -22,8 +22,9 @@ public class MachineGun : Gun
 		{
 			TimeCounting = 0.0f;
 
-			GameObject instance = Instantiate (bullet, transform.position, Quaternion.identity) as GameObject;
+			GameObject instance = Instantiate (bullet, transform.position, transform.rotation) as GameObject;
 			StartCoroutine (Recoil ());
 		}
 	}
+
 }
