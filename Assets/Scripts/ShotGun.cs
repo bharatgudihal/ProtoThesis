@@ -24,8 +24,8 @@ public class ShotGun : Gun
 
 			for (int i = -4; i <= 4; i++) 
 			{
-				Quaternion rotation = Quaternion.Euler (0, 5 * i, 0) * transform.rotation;
-				Instantiate (bullet, transform.localPosition, rotation);
+				Quaternion rotation = Quaternion.Euler (0, 5 * i, 0) * i_CharObject.transform.rotation;
+				Instantiate (bullet, transform.position, rotation);
 			}
 			StartCoroutine (Recoil ());
 		}

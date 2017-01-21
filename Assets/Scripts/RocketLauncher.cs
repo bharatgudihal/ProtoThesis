@@ -21,8 +21,8 @@ public class RocketLauncher : Gun
 		else 
 		{
 			TimeCounting = 0.0f;
-			GameObject instance = Instantiate (bullet, transform.position, transform.rotation) as GameObject;
-			instance.transform.localEulerAngles = new Vector3 (90, 0, 0);
+			GameObject instance = Instantiate (bullet, transform.position, i_CharObject.transform.rotation) as GameObject;
+			instance.transform.rotation = i_CharObject.transform.rotation * Quaternion.Euler (90, 0, 0);
 			StartCoroutine (Recoil ());
 		}
 	}

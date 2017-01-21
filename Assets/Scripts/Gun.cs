@@ -9,8 +9,11 @@ public class Gun : MonoBehaviour
 	public float Frequency;
 	public float RecoilForce = 200;
 
+	public GameObject i_CharObject;
+
+
 	protected float TimeCounting = 0;
-	protected KeyCode input = KeyCode.Space;
+	protected KeyCode input = KeyCode.A;
 
 	public virtual void Mode ()
 	{
@@ -19,8 +22,8 @@ public class Gun : MonoBehaviour
 
 	protected IEnumerator Recoil()
 	{
-		GetComponent<Rigidbody> ().AddForce (transform.forward * -RecoilForce);
+		i_CharObject.GetComponent<Rigidbody> ().AddForce (i_CharObject.transform.forward * -RecoilForce);
 		yield return new WaitForSeconds(2);
-		GetComponent<Rigidbody> ().AddForce (transform.forward *  RecoilForce);
+		i_CharObject.GetComponent<Rigidbody> ().AddForce (i_CharObject.transform.forward *  RecoilForce);
 	}
 }
