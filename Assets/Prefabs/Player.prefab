@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 136526319380250112}
   - component: {fileID: 114154166923061280}
   - component: {fileID: 114755633312243660}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4561289139016336}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LookAt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4461892956725642}
   - component: {fileID: 33219795629251140}
   - component: {fileID: 23392587420248018}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &114154166923061280
 MonoBehaviour:
@@ -167,8 +167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a2677cec5edc7b42b467415a046eb26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 360
+  speed: 500
   noAxisInput: 0
+  isSidescrolling: 0
   velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &114755633312243660
 MonoBehaviour:
@@ -183,7 +184,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myModSpot: 1
   isAttached: 0
-  player: {fileID: 0}
+  joystickMovement: {fileID: 0}
+  rigid: {fileID: 0}
+  capsule: {fileID: 0}
   gravity: -20
   jumpForce: 15
   velocity: {x: 0, y: 0, z: 0}
@@ -196,7 +199,7 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1056960514454368}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f87009534e900e940a64da69595485ce, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5

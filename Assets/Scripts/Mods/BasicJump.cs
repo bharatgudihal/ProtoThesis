@@ -73,7 +73,7 @@ public class BasicJump : Mod {
         // Ray ray = new Ray(capsule.transform.position, -Vector3.up);
         int layerMask = 1 << 8;
         layerMask = ~layerMask;
-        return (Physics.CheckSphere(capsule.bounds.min + new Vector3(capsule.bounds.extents.x, 0f, capsule.bounds.extents.z), 0.1f, layerMask) && rigid.velocity.y <= 0.01f);
+        return (Physics.CheckSphere(capsule.bounds.min + new Vector3(capsule.bounds.extents.x, 0f, capsule.bounds.extents.z), 0.1f, layerMask, QueryTriggerInteraction.Ignore) && rigid.velocity.y <= 0.01f);
         // return Physics.CheckSphere(capsule.bounds.center, new Vector3(capsule.bounds.center.x, capsule.bounds.min.y - 0.1f, capsule.bounds.center.z), capsule.radius, LayerMask.NameToLayer("Default"));
         // return (Physics.Raycast(ray, distToGround + 0.005f, (int)Layers.Default, QueryTriggerInteraction.Collide) && rigid.velocity.y <= 0.01f);
     }
