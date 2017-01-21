@@ -380,6 +380,18 @@ Prefab:
       propertyPath: m_Constraints
       value: 112
       objectReference: {fileID: 0}
+    - target: {fileID: 1190693323888886, guid: 3621fca5ef6e98f418377c0ff43e6eac, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1938776647268736, guid: 3621fca5ef6e98f418377c0ff43e6eac, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1056960514454368, guid: 3621fca5ef6e98f418377c0ff43e6eac, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3621fca5ef6e98f418377c0ff43e6eac, type: 2}
   m_IsPrefabParent: 0
@@ -458,7 +470,6 @@ GameObject:
   - component: {fileID: 1379692829}
   - component: {fileID: 1379692828}
   - component: {fileID: 1379692827}
-  - component: {fileID: 1379692832}
   - component: {fileID: 1379692833}
   m_Layer: 0
   m_Name: Main Camera
@@ -535,29 +546,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 29.093002, y: 238.193, z: 0}
---- !u!114 &1379692832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1379692826}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5787b90198cef248a508d558f607f3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  followDistance: 5
-  maxX: 40
-  maxY: 20
-  smoothTime: 0.5
-  sensitivity: 5
 --- !u!114 &1379692833
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1379692826}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 978a17ff30d7cd84baea82e5498eeda4, type: 3}
   m_Name: 

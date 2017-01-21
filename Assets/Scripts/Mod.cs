@@ -24,6 +24,11 @@ public abstract class Mod : MonoBehaviour
     public bool isAttached;
     [SerializeField] protected JoystickMovement joystickMovement;
 
+    private void Awake()
+    {
+
+    }
+
     // Use this for initialization
     void Start()
     {
