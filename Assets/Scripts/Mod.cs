@@ -20,7 +20,8 @@ public enum ModSpot
 
 public abstract class Mod : MonoBehaviour
 {
-
+    [SerializeField] protected Player player;
+    [SerializeField] protected Rigidbody rigbod;
     public ModSpot myModSpot;
 
     // Use this for initialization
