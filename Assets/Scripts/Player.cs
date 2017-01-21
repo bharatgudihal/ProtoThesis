@@ -12,11 +12,12 @@ public enum PlayerState
     AIRDASHING = 5
 }
 
-
 public class Player : MonoBehaviour
 {
 
     public PlayerState state;
+
+    private Rigidbody rigid;
 
     public float speed;
     public float gravity;
@@ -28,22 +29,22 @@ public class Player : MonoBehaviour
 
     public float distToGround;
 
-    #region Privates
-    private Rigidbody rigid;
+    private bool usedDoubleJump;
     private float gravityY;
     private float rigidY;
-    #endregion
+    private RaycastHit hitInfo;
 
-    private void Awake()
+    void Awake()
     {
         rigid = GetComponentInChildren<Rigidbody>();
+        state = PlayerState.JUMPING;
+        distToGround = GetComponentInChildren<CapsuleCollider>().bounds.extents.y;
     }
 
     // Use this for initialization
     void Start()
     {
-        state = PlayerState.JUMPING;
-        distToGround = GetComponentInChildren<CapsuleCollider>().bounds.extents.y;
+
         rigid.velocity = new Vector3(rigid.velocity.x, rigid.velocity.y + gravity * Time.deltaTime, rigid.velocity.z);
     }
 
@@ -56,6 +57,7 @@ public class Player : MonoBehaviour
         Vector3 movement = new Vector3(h, 0.0f, v);
         rigidY = rigid.velocity.y;
         isGrounded = IsGrounded();
+
         velocity = rigid.velocity;
 
         noAxisInput = false;
@@ -89,6 +91,7 @@ public class Player : MonoBehaviour
                 {
                     state = PlayerState.JUMPING;
                     rigid.velocity = new Vector3(rigid.velocity.x, jumpForce, rigid.velocity.z);
+                    isGrounded = false;
                     break;
                 }
 
@@ -114,6 +117,7 @@ public class Player : MonoBehaviour
                 {
                     state = PlayerState.JUMPING;
                     rigid.velocity = new Vector3(rigid.velocity.x, jumpForce, rigid.velocity.z);
+                    isGrounded = false;
                     break;
                 }
 
@@ -127,6 +131,7 @@ public class Player : MonoBehaviour
                 {
                     if (noAxisInput) state = PlayerState.IDLE;
                     else state = PlayerState.RUNNING;
+                    usedDoubleJump = false;
                     break;
                 }
 
@@ -145,9 +150,9 @@ public class Player : MonoBehaviour
     }
 
 
-
     public bool IsGrounded()
     {
-        return (Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.005f) && velocity.y <= 0f);
+        Debug.DrawRay(transform.position, -Vector3.up, Color.green);
+        return (Physics.Raycast(transform.position, -Vector3.up, out hitInfo, distToGround + 0.005f) && rigid.velocity.y <= 0.01f);
     }
 }
