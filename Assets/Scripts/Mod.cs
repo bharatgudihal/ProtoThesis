@@ -22,7 +22,7 @@ public abstract class Mod : MonoBehaviour
 {
     public ModSpot myModSpot;
     public bool isAttached;
-    [SerializeField] protected Player player;
+    [SerializeField] protected JoystickMovement joystickMovement;
 
     // Use this for initialization
     void Start()
@@ -44,13 +44,13 @@ public abstract class Mod : MonoBehaviour
     }
 
     public abstract void Activate();
-    public void Attach(Player player) {
-        this.player = player;
+    public virtual void Attach(JoystickMovement joystickMovement) {
+        this.joystickMovement = joystickMovement;
         isAttached = true;
     }
 
-    public void Dettach() {
-        player = null;
+    public virtual void Dettach() {
+        joystickMovement = null;
         isAttached = false;
     }
 }
