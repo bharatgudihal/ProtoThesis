@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;   
+
+/// <summary>
+/// Handles the Mod Interface. 
+/// 
+/// </summary>
 public class InterfaceManager : MonoBehaviour {
 
     [SerializeField]
@@ -28,30 +33,31 @@ public class InterfaceManager : MonoBehaviour {
     [SerializeField]
     Slider playerHealthSlider;
 
-    float mod1CooldownTimer, mod2CooldownTimer, mod3CooldownTimer, mod4CooldownTimer;
+    float mod1CooldownTimer, mod2CooldownTimer, mod3CooldownTimer, mod4CooldownTimer; //timers for cooldowns
 
-    float modCooldownTime = 1f;
+    float modCooldownTime = 1f; //what is the cooldown time for a mod?
 
-    bool mod1Available = false;
-    bool mod2Available = false;
-    bool mod3Available = false;
-    bool mod4Available = false;
+    public bool mod1Available = false; //Is mod1 available? - Down
+    public bool mod2Available = false; //Is mod2 available? - Left
+    public bool mod3Available = false; //Is mod3 available? - Right
+    public bool mod4Available = false; //Is mod4 available? - Up
 
     [SerializeField]
-    int mod1Counter = 3;
+    int mod1Counter = 3; //how many times can you use mod1?
     [SerializeField]
-    int mod2Counter = 3;
+    int mod2Counter = 3; //how many times can you use mod2?
     [SerializeField]
-    int mod3Counter = 3;
+    int mod3Counter = 3; //how many times can you use mod3?
     [SerializeField]
-    int mod4Counter = 3;
+    int mod4Counter = 3; //how many times can you use mod4?
 
     private void Awake()
     {
-        UpdateCounter(ModSpot.Down);
-        UpdateCounter(ModSpot.Left);
-        UpdateCounter(ModSpot.Right);
-        UpdateCounter(ModSpot.Up);
+        //Set initial state of counters
+        UpdateCounterAndSprites(ModSpot.Down);
+        UpdateCounterAndSprites(ModSpot.Left);
+        UpdateCounterAndSprites(ModSpot.Right);
+        UpdateCounterAndSprites(ModSpot.Up);
     }
 
     // Use this for initialization
@@ -62,6 +68,8 @@ public class InterfaceManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+
+        //TODO: This sorts of calls should go in the appropriate control manager
         if (Input.GetKeyDown(KeyCode.Alpha1) && !mod1Available)
         {
             ActivateMod(ModSpot.Down);
@@ -83,7 +91,7 @@ public class InterfaceManager : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        #region timers
+        #region CooldownTimers
         if (mod1Available)
         {
             mod1CooldownTimer -= Time.deltaTime;
@@ -127,7 +135,12 @@ public class InterfaceManager : MonoBehaviour {
         #endregion
     }
 
-    void ActivateMod(ModSpot i_toActivate)
+    /// <summary>
+    /// Activates the mod on the mod interface, starts the cooldown timers
+    /// sets the appropriate graphics.
+    /// </summary>
+    /// <param name="i_toActivate">The modspot to reset</param>
+   public void ActivateMod(ModSpot i_toActivate)
     {
         switch (i_toActivate)
         {
@@ -169,6 +182,11 @@ public class InterfaceManager : MonoBehaviour {
         
     }
 
+    /// <summary>
+    /// Resets the mod on the mod interface. Used in the cooldown timers. Not for
+    /// outside use.
+    /// </summary>
+    /// <param name="i_toReset">The modspot to reset</param>
     void ResetMod(ModSpot i_toReset)
     {
         switch (i_toReset)
@@ -196,10 +214,24 @@ public class InterfaceManager : MonoBehaviour {
 
         }
 
-        UpdateCounter(i_toReset);
+        UpdateCounterAndSprites(i_toReset);
     }
 
-    void UpdateCounter(ModSpot i_toUpdate)
+    /// <summary>
+    /// Set the health bar, for outside use. Note, no death checks performed here.
+    /// </summary>
+    /// <param name="i_deltaHealth">The delta change, positive or negative</param>
+    public void SetHealth(float i_deltaHealth)
+    {
+        playerHealthSlider.value += i_deltaHealth;
+    }
+
+    /// <summary>
+    /// Updates the uses text and sprites for the appropriate mods
+    /// in the mod interface
+    /// </summary>
+    /// <param name="i_toUpdate">modspot to update</param>
+    void UpdateCounterAndSprites(ModSpot i_toUpdate)
     {
         switch (i_toUpdate)
         {
