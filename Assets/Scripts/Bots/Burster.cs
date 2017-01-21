@@ -5,7 +5,7 @@ using UnityEngine;
 public class Burster : MonoBehaviour {
 
 	[SerializeField] Rigidbody rigbod;
-    [SerializeField, Range(20f, 1000f)] float zForce;
+    [SerializeField, Range(900f, 2000f)] float zForce;
     [SerializeField, Range(1f, 20f)] float rotationSpeed;
     [SerializeField, Range(.1f, 3f)] float waitTimeBeforeBurst;
 
