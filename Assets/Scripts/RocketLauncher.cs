@@ -6,7 +6,7 @@ public class RocketLauncher : Gun
 {
 	void Update () 
 	{
-		if (Input.GetKey (KeyCode.Space)  && IsActive == true) 
+		if (Input.GetKey (input)  && IsActive == true) 
 		{ 
 			Mode();
 		}
@@ -21,8 +21,9 @@ public class RocketLauncher : Gun
 		else 
 		{
 			TimeCounting = 0.0f;
-			GameObject instance = Instantiate (bullet, transform.position, Quaternion.identity) as GameObject;
+			GameObject instance = Instantiate (bullet, transform.position, transform.rotation) as GameObject;
 			instance.transform.localEulerAngles = new Vector3 (90, 0, 0);
+			StartCoroutine (Recoil ());
 		}
 	}
 }
