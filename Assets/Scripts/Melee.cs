@@ -24,9 +24,11 @@ public class Melee : Mod {
         if (canActivate) {
             canActivate = false;
             Vector3 moveDir = Camera.main.transform.TransformDirection(transform.forward);
-            moveDir = new Vector3(moveDir.x, 0f,moveDir.z);
+            if (myModSpot == ModSpot.Up || myModSpot == ModSpot.Down) {
+                moveDir = transform.forward;
+            }
 
-            player.Dash(moveDir * forwardForce);
+            joystickMovement.Dash(moveDir * forwardForce);
             hitBox.enabled = true;
             Invoke("TurnOffHitBox", timeHitBoxIsActive);
             Invoke("ReactivateMovement", timeBetweenStrikes);
@@ -38,6 +40,6 @@ public class Melee : Mod {
     }    
     void ReactivateMovement() {
         canActivate = true;
-        player.EnableMovement();
+        joystickMovement.EnableMovement();
     }
 }
