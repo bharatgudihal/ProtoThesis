@@ -5,12 +5,12 @@ using UnityEngine;
 public class OverheadCamera : MonoBehaviour {
 
     private JoystickMovement player;
-    float distance;
+    Vector3 distance;
 
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<JoystickMovement>();
-        distance = Vector3.Distance(player.transform.position, this.transform.position);
+        distance = player.transform.position - this.transform.position;
     }
     
 
@@ -21,6 +21,6 @@ public class OverheadCamera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z - distance);
+        transform.position = player.transform.position - distance;
     }
 }
