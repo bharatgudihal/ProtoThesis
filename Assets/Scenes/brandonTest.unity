@@ -153,6 +153,53 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b5fd70da22d529149a2f5a072c2e1189, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &154494357
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4247820710566852, guid: b6940b25037f72849b599b155ef20ff1, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 4.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 4247820710566852, guid: b6940b25037f72849b599b155ef20ff1, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 4247820710566852, guid: b6940b25037f72849b599b155ef20ff1, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4247820710566852, guid: b6940b25037f72849b599b155ef20ff1, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4247820710566852, guid: b6940b25037f72849b599b155ef20ff1, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4247820710566852, guid: b6940b25037f72849b599b155ef20ff1, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4247820710566852, guid: b6940b25037f72849b599b155ef20ff1, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4247820710566852, guid: b6940b25037f72849b599b155ef20ff1, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4247820710566852, guid: b6940b25037f72849b599b155ef20ff1, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114444507280674204, guid: b6940b25037f72849b599b155ef20ff1, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: b6940b25037f72849b599b155ef20ff1, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &812210186
 Prefab:
   m_ObjectHideFlags: 0
@@ -483,7 +530,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4831183573016428, guid: 5f8f7b59ef94b1a489316cf18d8161c9, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.02
+      value: -0.52
       objectReference: {fileID: 0}
     - target: {fileID: 4831183573016428, guid: 5f8f7b59ef94b1a489316cf18d8161c9, type: 2}
       propertyPath: m_LocalPosition.z
@@ -509,21 +556,31 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 54690853317269468, guid: 5f8f7b59ef94b1a489316cf18d8161c9,
-        type: 2}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
-    - target: {fileID: 114974686756596582, guid: 5f8f7b59ef94b1a489316cf18d8161c9,
-        type: 2}
-      propertyPath: jumpForce
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114974686756596582, guid: 5f8f7b59ef94b1a489316cf18d8161c9,
-        type: 2}
-      propertyPath: gravity
-      value: -10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5f8f7b59ef94b1a489316cf18d8161c9, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &2143311845 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1964153958112620, guid: b6940b25037f72849b599b155ef20ff1,
+    type: 2}
+  m_PrefabInternal: {fileID: 154494357}
+--- !u!114 &2143311846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2143311845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f11d5614196bb40ba49dbd94456315, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigbod: {fileID: 2143311848}
+  maxSpeed: 15
+  acceleration: 2.11
+  rotationSpeed: 3.88
+--- !u!54 &2143311848 stripped
+Rigidbody:
+  m_PrefabParentObject: {fileID: 54231427622499588, guid: b6940b25037f72849b599b155ef20ff1,
+    type: 2}
+  m_PrefabInternal: {fileID: 154494357}
