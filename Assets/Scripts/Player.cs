@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
 
     public float distToGround;
 
+    private bool canMove=true;
     private bool usedDoubleJump;
     private float gravityY;
     private float rigidY;
@@ -36,9 +37,9 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-        rigid = GetComponentInChildren<Rigidbody>();
+        rigid = GetComponent<Rigidbody>();
         state = PlayerState.JUMPING;
-        distToGround = GetComponentInChildren<CapsuleCollider>().bounds.extents.y;
+        distToGround = GetComponent<CapsuleCollider>().bounds.extents.y;
     }
 
     // Use this for initialization
@@ -48,6 +49,15 @@ public class Player : MonoBehaviour
         rigid.velocity = new Vector3(rigid.velocity.x, rigid.velocity.y + gravity * Time.deltaTime, rigid.velocity.z);
     }
 
+    public void EnableMovement() {
+        canMove = true;
+    }
+
+    public void Dash(Vector3 moveVec) {
+        rigid.AddForce(moveVec);
+        canMove = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -55,6 +65,9 @@ public class Player : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(h, 0.0f, v);
+        if (!canMove) {
+            movement = Vector3.zero;
+        }
         rigidY = rigid.velocity.y;
         isGrounded = IsGrounded();
 
