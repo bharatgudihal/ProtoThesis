@@ -6,7 +6,7 @@ public class ShotGun : Gun
 {
 	void Update () 
 	{
-		if (Input.GetKey (KeyCode.Space)  && IsActive == true) 
+		if (Input.GetKey (input)  && IsActive == true) 
 		{ 
 			Mode();
 		}
@@ -27,6 +27,7 @@ public class ShotGun : Gun
 				Quaternion rotation = Quaternion.Euler (0, 5 * i, 0);
 				Instantiate (bullet, transform.localPosition, rotation);
 			}
+			StartCoroutine (Recoil ());
 		}
 	}
 }

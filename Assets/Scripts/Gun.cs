@@ -7,10 +7,20 @@ public class Gun : MonoBehaviour
 	public bool IsActive;
 	public GameObject bullet;
 	public float Frequency;
+	public float RecoilForce = 200;
+
 	protected float TimeCounting = 0;
+	protected KeyCode input = KeyCode.Space;
 
 	public virtual void Mode ()
 	{
 		
+	}
+
+	protected IEnumerator Recoil()
+	{
+		GetComponent<Rigidbody> ().AddForce (transform.forward * -RecoilForce);
+		yield return new WaitForSeconds(2);
+		GetComponent<Rigidbody> ().AddForce (transform.forward * RecoilForce);
 	}
 }

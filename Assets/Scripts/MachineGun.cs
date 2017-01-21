@@ -6,7 +6,7 @@ public class MachineGun : Gun
 {
 	void Update () 
 	{
-		if (Input.GetKey (KeyCode.Space) && IsActive == true) 
+		if (Input.GetKey (input) && IsActive == true) 
 		{ 
 			Mode();
 		}
@@ -23,6 +23,7 @@ public class MachineGun : Gun
 			TimeCounting = 0.0f;
 
 			GameObject instance = Instantiate (bullet, transform.position, Quaternion.identity) as GameObject;
+			StartCoroutine (Recoil ());
 		}
 	}
 }
