@@ -6,7 +6,8 @@ using UnityEngine;
 public class BasicJump : Mod {
 
 
-    private Rigidbody rigid;
+    [SerializeField] Rigidbody rigid;
+    [SerializeField] CapsuleCollider capsule;
 
     public float gravity;
     public float jumpForce;
@@ -32,9 +33,9 @@ public class BasicJump : Mod {
 
     void Awake ()
     {
-        rigid = GetComponent<Rigidbody>();
-        distToGround = GetComponent<CapsuleCollider>().bounds.extents.y;
+        distToGround = capsule.bounds.extents.y;
     }
+
 
     // Use this for initialization
     void Start () {
@@ -65,7 +66,13 @@ public class BasicJump : Mod {
 
     public bool IsGrounded()
     {
-        Debug.DrawRay(transform.position, -Vector3.up, Color.green);
-        return (Physics.Raycast(transform.position, -Vector3.up, out hitInfo, distToGround + 0.005f) && rigid.velocity.y <= 0.01f);
+        Debug.DrawRay(capsule.transform.position, capsule.transform.position - Vector3.up, Color.red);
+        Ray ray = new Ray(capsule.transform.position, -Vector3.up);
+        return (Physics.Raycast(ray, distToGround + 0.005f,(int)Layers.Default, QueryTriggerInteraction.Collide) && rigid.velocity.y <= 0.01f);
     }
+}
+
+public enum Layers {
+    Default=0,
+    ModMan = 8
 }
