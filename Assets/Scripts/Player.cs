@@ -37,9 +37,9 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-        rigid = GetComponentInChildren<Rigidbody>();
+        rigid = GetComponent<Rigidbody>();
         state = PlayerState.JUMPING;
-        distToGround = GetComponentInChildren<CapsuleCollider>().bounds.extents.y;
+        distToGround = GetComponent<CapsuleCollider>().bounds.extents.y;
     }
 
     // Use this for initialization
