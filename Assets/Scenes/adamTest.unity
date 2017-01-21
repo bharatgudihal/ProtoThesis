@@ -173,6 +173,18 @@ MonoBehaviour:
   speed: 180
   noAxisInput: 0
   velocity: {x: 0, y: 0, z: 0}
+--- !u!114 &1151951371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1151951369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca343ada9ab7cb24b9544a248971ec93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myModSpot: 1
 --- !u!1 &1379692826
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,8 +265,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1379692826}
-  m_LocalRotation: {x: 0.31603003, y: 0.7003596, z: -0.045719847, w: 0.6383817}
-  m_LocalPosition: {x: -20.29, y: 4.05, z: 1.73}
+  m_LocalRotation: {x: -0.10107525, y: 0.7039519, z: -0.10229807, w: -0.6955363}
+  m_LocalPosition: {x: 10.380596, y: 2.4792464, z: 0.12719053}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
