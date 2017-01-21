@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum Level
+{
+    MainMenu,
+    LevelSelect,
+    Level1,
+    Level2,
+    Level3,
+    Level4,
+    Level5
+}
+
 public class LoadManager : MonoBehaviour {
 
     #region Singleton
@@ -64,15 +75,15 @@ public class LoadManager : MonoBehaviour {
 		
 	}
 
-    public void LoadLevel(string levelName)
+    public void LoadLevel(Level new_level)
     {
-        StartCoroutine(LoadlevelAsync(levelName));
+        StartCoroutine(LoadlevelAsync(new_level));
     }
 
-    IEnumerator LoadlevelAsync(string levelName)
+    IEnumerator LoadlevelAsync(Level new_level)
     {
 
-        AsyncOperation ao = SceneManager.LoadSceneAsync(levelName);
+        AsyncOperation ao = SceneManager.LoadSceneAsync(new_level.ToString());
 
         ao.allowSceneActivation = false;
 
