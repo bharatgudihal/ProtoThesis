@@ -12,7 +12,7 @@ public class JoystickMovement : MonoBehaviour {
     #region Privates
 
     [SerializeField]
-    private Vector3 velocity;
+    public Vector3 velocity;
     private Rigidbody rigid;
     private float rigidY;
     #endregion
