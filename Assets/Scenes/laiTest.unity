@@ -382,9 +382,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c532fd497c4fb24492497d190ee62eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsActive: 0
+  IsActive: 1
   bullet: {fileID: 1409178949240308, guid: 519df11cdeb130945bf409a5188f4a74, type: 2}
   Frequency: 0.5
+  RecoilForce: 1000
 --- !u!114 &1561437842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,9 +397,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fa817998f898c0428d1e30724eaad21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   bullet: {fileID: 1433574071766842, guid: 231d027e6a139424cb21568293014f3d, type: 2}
   Frequency: 0.5
+  RecoilForce: 200
 --- !u!114 &1561437843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,9 +412,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 143edadd135261a4a8f6537cb74328a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   bullet: {fileID: 1409178949240308, guid: 519df11cdeb130945bf409a5188f4a74, type: 2}
   Frequency: 0.1
+  RecoilForce: 200
 --- !u!114 &1561437844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,6 +430,7 @@ MonoBehaviour:
   IsActive: 0
   bullet: {fileID: 1174765506046326, guid: 63a9b059b8bc24143b8fffc6addfd50c, type: 2}
   Frequency: 1
+  RecoilForce: 200
 --- !u!54 &1561437845
 Rigidbody:
   m_ObjectHideFlags: 0
