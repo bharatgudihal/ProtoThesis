@@ -20,14 +20,14 @@ public enum ModSpot
 
 public abstract class Mod : MonoBehaviour
 {
-    [SerializeField] protected Player player;
-    [SerializeField] protected Rigidbody rigbod;
     public ModSpot myModSpot;
+    public bool isAttached;
+    [SerializeField] protected Player player;
 
     // Use this for initialization
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -44,4 +44,13 @@ public abstract class Mod : MonoBehaviour
     }
 
     public abstract void Activate();
+    public void Attach(Player player) {
+        this.player = player;
+        isAttached = true;
+    }
+
+    public void Dettach() {
+        player = null;
+        isAttached = false;
+    }
 }
