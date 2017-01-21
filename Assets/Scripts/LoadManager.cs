@@ -60,7 +60,7 @@ public class LoadManager : MonoBehaviour {
     private void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
 #if UNITY_EDITOR
-        Debug.Log("Scene " + scene.name + " Loaded in mode " + mode + " : DataManager.cs");
+        Debug.Log("Scene " + scene.name + " Loaded in mode " + mode + " : LoadManager.cs");
 #endif
     }
     #endregion
