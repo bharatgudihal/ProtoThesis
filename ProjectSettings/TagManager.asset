@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CameraSwitchToSidescroll
   - CameraSwitchToOverhead
+  - Ceiling
   layers:
   - Default
   - TransparentFX
