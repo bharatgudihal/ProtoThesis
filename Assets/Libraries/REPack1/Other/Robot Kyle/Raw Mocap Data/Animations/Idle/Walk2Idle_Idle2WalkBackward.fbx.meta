@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a00ef70451f08bc42b7ede9818669757
+guid: cf40ccca5a71a9942b339c7bbdfb3491
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
@@ -170,7 +170,10 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: 'Copied Avatar Rig Configuration mis-match. Bone length
+      in copied configuration does not match position in animation file
+
+      Walk2Idle_Idle2WalkBackward'
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 1
