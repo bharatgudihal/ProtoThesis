@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ForceField : MonoBehaviour 
+public class ForceField : Mod 
 {
-	public bool IsActive = true;
 
-	private KeyCode input = KeyCode.Z;
 	private GameObject m_Field;
 
 	// Use this for initialization
@@ -14,19 +12,28 @@ public class ForceField : MonoBehaviour
 	{
 		m_Field = transform.GetChild (1).gameObject;
 	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		if (Input.GetKey (input) && IsActive == true) 
-			m_Field.SetActive (true);
-		else 
-			m_Field.SetActive (false);
-	}
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(m_Field.activeSelf == true)
+		Debug.Log(other);
+		if(m_Field.activeSelf == true && isAttached && other.tag == "projectile")
 			Destroy (other.gameObject);
+	}
+
+	public override void Activate()
+	{		
+		base.Activate ();
+		m_Field.SetActive (true);
+	}
+
+	public override void DeActivate()
+	{
+		base.DeActivate ();
+		m_Field.SetActive (false);
+	}
+
+	public override void Fatigue()
+	{
+
 	}
 }

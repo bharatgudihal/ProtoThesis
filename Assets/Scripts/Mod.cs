@@ -44,7 +44,7 @@ public abstract class Mod : MonoBehaviour
     {
         if (isEnabled)
         {
-            if (!Input.GetButton("RightBumper") && ((Input.GetButton(Controls.Up) && myModSpot == ModSpot.Up) ||
+            if ((!Input.GetButton("RightBumper") && !Input.GetButton("LeftBumper")) && ((Input.GetButton(Controls.Up) && myModSpot == ModSpot.Up) ||
                 (Input.GetButton(Controls.Down) && myModSpot == ModSpot.Down) ||
                 (Input.GetButton(Controls.Left) && myModSpot == ModSpot.Left) ||
                 (Input.GetButton(Controls.Right) && myModSpot == ModSpot.Right)))
@@ -57,16 +57,23 @@ public abstract class Mod : MonoBehaviour
                     Dettach();
                 }
             }
-            /*if (Input.GetButtonUp("Up"))
+            if ((Input.GetButtonUp(Controls.Up) && myModSpot == ModSpot.Up) ||
+                (Input.GetButtonUp(Controls.Down) && myModSpot == ModSpot.Down) ||
+                (Input.GetButtonUp(Controls.Left) && myModSpot == ModSpot.Left) ||
+                (Input.GetButtonUp(Controls.Right) && myModSpot == ModSpot.Right))
             {
                 DeActivate();
-            }*/
+            }
         }
     }
 
-    public abstract void Activate();
+	public virtual void Activate(){
+		isAttached = true;
+	}
 
-    public abstract void DeActivate();
+	public virtual void DeActivate(){
+		isAttached = false;
+	}
 
     public abstract void Fatigue();
 
