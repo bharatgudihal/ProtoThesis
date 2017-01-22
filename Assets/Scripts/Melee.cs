@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,5 +42,15 @@ public class Melee : Mod {
     void ReactivateMovement() {
         canActivate = true;
         joystickMovement.EnableMovement();
+    }
+
+    public override void DeActivate()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Fatigue()
+    {
+        throw new NotImplementedException();
     }
 }

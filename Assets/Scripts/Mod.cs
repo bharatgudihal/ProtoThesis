@@ -24,6 +24,8 @@ public abstract class Mod : MonoBehaviour
     public bool isAttached;
     [SerializeField] protected JoystickMovement joystickMovement;
 
+    public float health = 100f;
+
     private void Awake()
     {
 
@@ -45,10 +47,24 @@ public abstract class Mod : MonoBehaviour
         {
 
             Activate();
+            Fatigue();
+            if(health <= 0)
+            {
+                Dettach();
+            }
+        }
+        if (Input.GetButtonUp("Up"))
+        {
+            DeActivate();
         }
     }
 
     public abstract void Activate();
+
+    public abstract void DeActivate();
+
+    public abstract void Fatigue();
+
     public virtual void Attach(JoystickMovement joystickMovement) {
         this.joystickMovement = joystickMovement;
         isAttached = true;

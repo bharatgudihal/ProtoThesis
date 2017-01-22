@@ -86,6 +86,16 @@ public class BasicJump : Mod {
             Gizmos.DrawSphere(capsule.bounds.min + new Vector3(capsule.bounds.extents.x, 0f, capsule.bounds.extents.z), 0.1f);
         }
     }
+
+    public override void DeActivate()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Fatigue()
+    {
+        throw new NotImplementedException();
+    }
 }
 
 public enum Layers {
