@@ -31,6 +31,7 @@ public class JoystickMovement : MonoBehaviour {
         }
 
     }
+    Vector3 movement;
 
     private bool canMove = true;
     // Update is called once per frame
@@ -47,7 +48,7 @@ public class JoystickMovement : MonoBehaviour {
         {
             v = Input.GetAxis("Vertical");
         }
-        Vector3 movement = new Vector3(h, 0.0f, v);
+        movement = new Vector3(h, 0.0f, v);
         if (!canMove) {
             movement = Vector3.zero;
         }
@@ -71,10 +72,12 @@ public class JoystickMovement : MonoBehaviour {
         movement.y = 0f;
         movement = movement.normalized;
 
-        rigid.velocity = movement * speed * Time.deltaTime + GetExternalForceSum();
         isGrounded = IsGrounded();
-        //rigid.velocity += new Vector3(rigid.velocity.x, rigidY, rigid.velocity.z);
+    }
 
+    private void FixedUpdate()
+    {
+        rigid.velocity = movement * speed * Time.fixedDeltaTime + GetExternalForceSum();
     }
 
     Vector3 GetExternalForceSum() {
