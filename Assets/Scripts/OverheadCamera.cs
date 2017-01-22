@@ -5,7 +5,8 @@ using UnityEngine;
 public class OverheadCamera : MonoBehaviour {
 
     private JoystickMovement player;
-    Vector3 distance;
+    public Vector3 distance;
+    public Vector3 angle;
 
     void Awake()
     {
@@ -22,5 +23,10 @@ public class OverheadCamera : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.position = player.transform.position - distance;
+    }
+
+    public void SetCameraPosition(Vector3 position)
+    {
+        distance = player.transform.position - position;
     }
 }
