@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Thruster : Mod {
-
-    [SerializeField] Rigidbody rigid;
+    
     [SerializeField, Range(10f,1000f)] float thrustForce; 
     bool canActivate=true;
 
@@ -25,5 +24,13 @@ public class Thruster : Mod {
         canActivate = true;
     }
 
+    public override void DeActivate()
+    {
+        
+    }
 
+    public override void Fatigue()
+    {
+        
+    }
 }

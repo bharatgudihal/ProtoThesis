@@ -108,6 +108,7 @@ public class ModManager : MonoBehaviour {
     {
         mod.isEnabled = true;
         mod.Attach(joystickMovement);
+        mod.transform.gameObject.layer = (int)Layers.ModMan;
         mod.GetComponent<CapsuleCollider>().enabled = false;        
         switch (mod.myModSpot)
         {
