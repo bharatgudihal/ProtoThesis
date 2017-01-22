@@ -6,6 +6,7 @@ public class OverheadCamera : MonoBehaviour {
 
     private JoystickMovement player;
     public Vector3 distance;
+    public Vector3 angle;
 
     void Awake()
     {

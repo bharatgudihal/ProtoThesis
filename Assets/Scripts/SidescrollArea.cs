@@ -28,7 +28,10 @@ public class SidescrollArea : MonoBehaviour {
     {
         if (other.tag == "Player" && !player.GetComponent<JoystickMovement>().isSidescrolling)
         {
-            LeanTween.cancel(Camera.main.gameObject);
+            if (LeanTween.isTweening(Camera.main.gameObject))
+            {
+                LeanTween.cancel(Camera.main.gameObject);
+            }
             player.transform.position = new Vector3(lockToAxis.x, player.position.y, lockToAxis.z);
             LeanTween.move(Camera.main.gameObject, newCameraPosition.position, timeTaken).setOnComplete(SetCameraActive);
             LeanTween.rotate(Camera.main.gameObject, newCameraPosition.eulerAngles, timeTaken).setOnComplete(SetCameraActive);

@@ -27,6 +27,7 @@ public class OverheadArea : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        /*
         tweenTimer += Time.deltaTime;
         if (LeanTween.isTweening(Camera.main.gameObject) && joystickMovement.isSidescrolling == false)
         {
@@ -36,16 +37,21 @@ public class OverheadArea : MonoBehaviour {
             LeanTween.move(Camera.main.gameObject, newCameraPosition.position, timeTaken - tweenTimer).setOnComplete(SetCameraActive);
             LeanTween.rotate(Camera.main.gameObject, newCameraPosition.transform.rotation.eulerAngles, timeTaken - tweenTimer).setOnComplete(SetCameraActive);
         }
+        */
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player" && joystickMovement.isSidescrolling)
         {
-            LeanTween.cancel(Camera.main.gameObject);
+            if (LeanTween.isTweening(Camera.main.gameObject))
+            {
+                LeanTween.cancel(Camera.main.gameObject);
+            }
             TweenTo(Camera.main.gameObject, newCameraPosition);
-            overheadCamera.distance = joystickMovement.transform.position - newCameraPosition.transform.position;
+            // overheadCamera.distance = joystickMovement.transform.position - newCameraPosition.transform.position;
             tweenTimer = 0f;
+            overheadCamera.enabled = true;
             overheadCamera.SetCameraPosition(newCameraPosition.position);
             sidescrollCamera.enabled = false;
             joystickMovement.isSidescrolling = false;
