@@ -8,6 +8,7 @@ public class JoystickMovement : MonoBehaviour {
 
     public float speed;
     public bool noAxisInput;
+    public bool isSidescrolling;
 
     #region Privates
 
@@ -41,7 +42,16 @@ public class JoystickMovement : MonoBehaviour {
     void Update () {
 
         float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+
+        float v;
+        if (isSidescrolling)
+        {
+            v = 0f;
+        }
+        else
+        {
+            v = Input.GetAxis("Vertical");
+        }
         Vector3 movement = new Vector3(h, 0.0f, v);
         if (!canMove) {
             movement = Vector3.zero;
