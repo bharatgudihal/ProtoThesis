@@ -24,6 +24,10 @@ public abstract class Mod : MonoBehaviour
     public bool isAttached;
     [SerializeField] protected JoystickMovement joystickMovement;
 
+    public float health = 100f;
+
+    public bool isEnabled;
+
     private void Awake()
     {
 
@@ -38,17 +42,34 @@ public abstract class Mod : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetButton(Controls.Up) && myModSpot == ModSpot.Up) ||
-            (Input.GetButton(Controls.Down) && myModSpot == ModSpot.Down) ||
-            (Input.GetButton(Controls.Left) && myModSpot == ModSpot.Left) ||
-            (Input.GetButton(Controls.Right) && myModSpot == ModSpot.Right))
+        if (isEnabled)
         {
+            if (!Input.GetButton("RightBumper") && ((Input.GetButton(Controls.Up) && myModSpot == ModSpot.Up) ||
+                (Input.GetButton(Controls.Down) && myModSpot == ModSpot.Down) ||
+                (Input.GetButton(Controls.Left) && myModSpot == ModSpot.Left) ||
+                (Input.GetButton(Controls.Right) && myModSpot == ModSpot.Right)))
+            {
 
-            Activate();
+                Activate();
+                Fatigue();
+                if (health <= 0)
+                {
+                    Dettach();
+                }
+            }
+            /*if (Input.GetButtonUp("Up"))
+            {
+                DeActivate();
+            }*/
         }
     }
 
     public abstract void Activate();
+
+    public abstract void DeActivate();
+
+    public abstract void Fatigue();
+
     public virtual void Attach(JoystickMovement joystickMovement) {
         this.joystickMovement = joystickMovement;
         isAttached = true;
