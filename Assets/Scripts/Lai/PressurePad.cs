@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PressurePad : MonoBehaviour 
 {
+	public bool OneTimes = true;
 	public bool IsTrigger = false;
 	// Use this for initialization
 	void Start () 
@@ -24,6 +25,9 @@ public class PressurePad : MonoBehaviour
 
 	void OnTriggerExit()
 	{
-		IsTrigger = false;
+		if (OneTimes == false) 
+		{
+			IsTrigger = false;
+		}
 	}
 }
