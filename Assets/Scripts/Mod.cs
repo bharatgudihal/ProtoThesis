@@ -67,9 +67,13 @@ public abstract class Mod : MonoBehaviour
         }
     }
 
-    public abstract void Activate();
+	public virtual void Activate(){
+		isAttached = true;
+	}
 
-    public abstract void DeActivate();
+	public virtual void DeActivate(){
+		isAttached = false;
+	}
 
     public abstract void Fatigue();
 

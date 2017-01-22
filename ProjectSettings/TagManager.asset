@@ -8,6 +8,8 @@ TagManager:
   - CameraSwitchToOverhead
   - Ceiling
   - Mod
+  - Undefined
+  - projectile
   layers:
   - Default
   - TransparentFX
