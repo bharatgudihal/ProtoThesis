@@ -1,12 +1,26 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;   
+using UnityEngine.UI;
 
 /// <summary>
 /// Handles the Mod Interface. 
 /// 
 /// </summary>
+/// 
+public enum ModTypes
+{
+    NONE,
+    GRENADE_LAUNCHER = 3,
+    MASHOT_GUN = 1,
+    SWORD = 4,
+    JET_ENGINE = 7,
+    SHIELD = 5,
+    X_RAY = 11,
+    ROCKET_LAUNCHER = 10
+}
+
 public class InterfaceManager : MonoBehaviour {
 
     [SerializeField]
@@ -27,6 +41,23 @@ public class InterfaceManager : MonoBehaviour {
     [SerializeField]
     Sprite usedSprite;
 
+    //0 = ready, 1 = using, 2 = empty
+    [SerializeField]
+    Sprite[] grenadeIcons = new Sprite[3];
+    [SerializeField]
+    Sprite[] mashotgunIcons = new Sprite[3];
+    [SerializeField]
+    Sprite[] swordIcons = new Sprite[3];
+    [SerializeField]
+    Sprite[] jetIcons = new Sprite[3];
+    [SerializeField]
+    Sprite[] shieldIcons = new Sprite[3];
+    [SerializeField]
+    Sprite[] xRayIcons = new Sprite[3];
+    [SerializeField]
+    Sprite[] rocketLauncherIcons = new Sprite[3];
+
+
     [SerializeField]
     Text mod1UsesText, mod2UsesText, mod3UsesText, mod4UsesText;
 
@@ -37,9 +68,13 @@ public class InterfaceManager : MonoBehaviour {
 
     float modCooldownTime = 1f; //what is the cooldown time for a mod?
 
+    [HideInInspector]
     public bool mod1Available = false; //Is mod1 available? - Down
+    [HideInInspector]
     public bool mod2Available = false; //Is mod2 available? - Left
+    [HideInInspector]
     public bool mod3Available = false; //Is mod3 available? - Right
+    [HideInInspector]
     public bool mod4Available = false; //Is mod4 available? - Up
 
     [SerializeField]
@@ -50,6 +85,13 @@ public class InterfaceManager : MonoBehaviour {
     int mod3Counter = 3; //how many times can you use mod3?
     [SerializeField]
     int mod4Counter = 3; //how many times can you use mod4?
+
+    //TODO: This shouldn't be set upon object instantiation, but rather checked against
+    //a back end keeping track of which mods are set in which slots
+    ModTypes slot1Type = ModTypes.NONE;
+    ModTypes slot2Type = ModTypes.NONE;
+    ModTypes slot3Type = ModTypes.NONE;
+    ModTypes slot4Type = ModTypes.NONE;
 
     private void Awake()
     {
@@ -62,7 +104,9 @@ public class InterfaceManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
+        //Debug.Log("uh oh" + (int)mcr);
+
+
 	}
 	
 	// Update is called once per frame
@@ -72,19 +116,19 @@ public class InterfaceManager : MonoBehaviour {
         //TODO: This sorts of calls should go in the appropriate control manager
         if (Input.GetKeyDown(KeyCode.Alpha1) && !mod1Available)
         {
-            ActivateMod(ModSpot.Down);
+            FireModOnInterface(ModSpot.Down);
         }
         if(Input.GetKeyDown(KeyCode.Alpha2) && !mod2Available)
         {
-            ActivateMod(ModSpot.Left);
+            FireModOnInterface(ModSpot.Left);
         }
         if(Input.GetKeyDown(KeyCode.Alpha3) && !mod3Available)
         {
-            ActivateMod(ModSpot.Right);
+            FireModOnInterface(ModSpot.Right);
         }
         if(Input.GetKeyDown(KeyCode.Alpha4) && !mod4Available)
         {
-            ActivateMod(ModSpot.Up);
+            FireModOnInterface(ModSpot.Up);
         }
 
     }
@@ -140,7 +184,7 @@ public class InterfaceManager : MonoBehaviour {
     /// sets the appropriate graphics.
     /// </summary>
     /// <param name="i_toActivate">The modspot to reset</param>
-   public void ActivateMod(ModSpot i_toActivate)
+   public void FireModOnInterface(ModSpot i_toActivate)
     {
         switch (i_toActivate)
         {
@@ -149,7 +193,6 @@ public class InterfaceManager : MonoBehaviour {
                     return;
                 mod1Available = true;
                 mod1CooldownTimer = modCooldownTime;
-                mod1Image.sprite = activatedSprite;
                 mod1Counter--;
                 break;
             case ModSpot.Left:
@@ -157,7 +200,6 @@ public class InterfaceManager : MonoBehaviour {
                     return;
                 mod2Available = true;
                 mod2CooldownTimer = modCooldownTime;
-                mod2Image.sprite = activatedSprite;
                 mod2Counter--;
                 break;
             case ModSpot.Right:
@@ -165,7 +207,6 @@ public class InterfaceManager : MonoBehaviour {
                     return;
                 mod3Available = true;
                 mod3CooldownTimer = modCooldownTime;
-                mod3Image.sprite = activatedSprite;
                 mod3Counter--;
                 break;
             case ModSpot.Up:
@@ -173,15 +214,17 @@ public class InterfaceManager : MonoBehaviour {
                     return;
                 mod4Available = true;
                 mod4CooldownTimer = modCooldownTime;
-                mod4Image.sprite = activatedSprite;
                 mod4Counter--;
                 break;
 
         }
 
-        
+        SetCooldownSprite(i_toActivate);
+
+
     }
 
+ 
     /// <summary>
     /// Resets the mod on the mod interface. Used in the cooldown timers. Not for
     /// outside use.
@@ -239,31 +282,240 @@ public class InterfaceManager : MonoBehaviour {
                 mod1UsesText.text = mod1Counter.ToString();
                 if(mod1Counter == 0)
                 {
-                    mod1Image.sprite = usedSprite;
+                    SetUnavailableSprite(i_toUpdate);
                 }
                 break;
             case ModSpot.Left:
                 mod2UsesText.text = mod2Counter.ToString();
                 if (mod2Counter == 0)
                 {
-                    mod2Image.sprite = usedSprite;
+                    SetUnavailableSprite(i_toUpdate);
                 }
                 break;
             case ModSpot.Right:
                 mod3UsesText.text = mod3Counter.ToString();
                 if (mod3Counter == 0)
                 {
-                    mod3Image.sprite = usedSprite;
+                    SetUnavailableSprite(i_toUpdate);
                 }
                 break;
             case ModSpot.Up:
                 mod4UsesText.text = mod4Counter.ToString();
                 if (mod4Counter == 0)
                 {
-                    mod4Image.sprite = usedSprite;
+                    SetUnavailableSprite(i_toUpdate);
                 }
                 break;
         }
 
+    }
+
+    void SetModTypeInSlot(ModSpot i_toSet, ModTypes i_type)
+    {
+        switch (i_toSet)
+        {
+            case ModSpot.Down:
+                slot1Type = i_type;
+                break;
+            case ModSpot.Left:
+                slot2Type = i_type;
+                break;
+            case ModSpot.Right:
+                slot3Type = i_type;
+                break;
+            case ModSpot.Up:
+                slot4Type = i_type;
+                break;
+        }
+
+        SetInitialReadySlotGraphic(i_toSet);
+    }
+
+    void SetInitialReadySlotGraphic(ModSpot i_toSet)
+    {
+        ModTypes typeToSet = ModTypes.NONE;
+        Sprite spriteToSet = null;
+
+        switch (i_toSet)
+        {
+            case ModSpot.Down:
+                typeToSet = slot1Type;
+                break;
+            case ModSpot.Left:
+                typeToSet = slot2Type;
+                break;
+            case ModSpot.Right:
+                typeToSet = slot3Type;
+                break;
+            case ModSpot.Up:
+                typeToSet = slot4Type;
+                break;
+        }
+
+        switch (typeToSet)
+        {
+            case ModTypes.GRENADE_LAUNCHER:
+                spriteToSet = grenadeIcons[0];
+                break;
+            case ModTypes.MASHOT_GUN:
+                spriteToSet = mashotgunIcons[0];
+                break;
+            case ModTypes.SWORD:
+                spriteToSet = swordIcons[0];
+                break;
+            case ModTypes.JET_ENGINE:
+                spriteToSet = jetIcons[0];
+                break;
+            case ModTypes.SHIELD:
+                spriteToSet = shieldIcons[0];
+                break;
+            case ModTypes.X_RAY:
+                spriteToSet = xRayIcons[0];
+                break;
+            case ModTypes.ROCKET_LAUNCHER:
+                spriteToSet = rocketLauncherIcons[0];
+                break;
+        }
+
+        switch (i_toSet)
+        {
+            case ModSpot.Down:
+                mod1Image.sprite = spriteToSet;
+                break;
+            case ModSpot.Left:
+                mod2Image.sprite = spriteToSet;
+                break;
+            case ModSpot.Right:
+                mod3Image.sprite = spriteToSet;
+                break;
+            case ModSpot.Up:
+                mod4Image.sprite = spriteToSet;
+                break;
+        }
+    }
+
+    void SetCooldownSprite(ModSpot i_toSet)
+    {
+        ModTypes typeToSet = ModTypes.NONE;
+        Sprite spriteToSet = null;
+        switch (i_toSet)
+        {
+            case ModSpot.Down:
+                typeToSet = slot1Type;
+                break;
+            case ModSpot.Left:
+                typeToSet = slot2Type;
+                break;
+            case ModSpot.Right:
+                typeToSet = slot3Type;
+                break;
+            case ModSpot.Up:
+                typeToSet = slot4Type;
+                break;
+        }
+
+        switch (typeToSet)
+        {
+            case ModTypes.GRENADE_LAUNCHER:
+                spriteToSet = grenadeIcons[1];
+                break;
+            case ModTypes.MASHOT_GUN:
+                spriteToSet = mashotgunIcons[1];
+                break;
+            case ModTypes.SWORD:
+                spriteToSet = swordIcons[1];
+                break;
+            case ModTypes.JET_ENGINE:
+                spriteToSet = jetIcons[1];
+                break;
+            case ModTypes.SHIELD:
+                spriteToSet = shieldIcons[1];
+                break;
+            case ModTypes.X_RAY:
+                spriteToSet = xRayIcons[1];
+                break;
+            case ModTypes.ROCKET_LAUNCHER:
+                spriteToSet = rocketLauncherIcons[1];
+                break;
+        }
+
+        switch (i_toSet)
+        {
+            case ModSpot.Down:
+                mod1Image.sprite = spriteToSet;
+                break;
+            case ModSpot.Left:
+                mod2Image.sprite = spriteToSet;
+                break;
+            case ModSpot.Right:
+                mod3Image.sprite = spriteToSet;
+                break;
+            case ModSpot.Up:
+                mod4Image.sprite = spriteToSet;
+                break;
+        }
+    }
+
+    void SetUnavailableSprite(ModSpot i_toSet)
+    {
+
+        ModTypes typeToSet = ModTypes.NONE;
+        Sprite spriteToSet = null;
+        switch (i_toSet)
+        {
+            case ModSpot.Down:
+                typeToSet = slot1Type;
+                break;
+            case ModSpot.Left:
+                typeToSet = slot2Type;
+                break;
+            case ModSpot.Right:
+                typeToSet = slot3Type;
+                break;
+            case ModSpot.Up:
+                typeToSet = slot4Type;
+                break;
+        }
+
+        switch (typeToSet)
+        {
+            case ModTypes.GRENADE_LAUNCHER:
+                spriteToSet = grenadeIcons[2];
+                break;
+            case ModTypes.MASHOT_GUN:
+                spriteToSet = mashotgunIcons[2];
+                break;
+            case ModTypes.SWORD:
+                spriteToSet = swordIcons[2];
+                break;
+            case ModTypes.JET_ENGINE:
+                spriteToSet = jetIcons[2];
+                break;
+            case ModTypes.SHIELD:
+                spriteToSet = shieldIcons[2];
+                break;
+            case ModTypes.X_RAY:
+                spriteToSet = xRayIcons[2];
+                break;
+            case ModTypes.ROCKET_LAUNCHER:
+                spriteToSet = rocketLauncherIcons[2];
+                break;
+        }
+
+        switch (i_toSet)
+        {
+            case ModSpot.Down:
+                mod1Image.sprite = spriteToSet;
+                break;
+            case ModSpot.Left:
+                mod2Image.sprite = spriteToSet;
+                break;
+            case ModSpot.Right:
+                mod3Image.sprite = spriteToSet;
+                break;
+            case ModSpot.Up:
+                mod4Image.sprite = spriteToSet;
+                break;
+        }
     }
 }
