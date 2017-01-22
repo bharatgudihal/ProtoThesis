@@ -20,31 +20,34 @@ public class ThirdPersonXRay : Mod
     }
     public override void Activate()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit))
+        RaycastHit[] hits = Physics.RaycastAll(playerCamera.transform.position, playerCamera.transform.forward);
+        foreach (RaycastHit hit in hits)
         {
-            if (objectLookingAt != null)
+            if (hit.transform.tag == "Wall")
             {
-                if (objectLookingAt == hit.transform.gameObject)
+                if (objectLookingAt != null)
                 {
-                    objectLookingAt = hit.transform.gameObject;
-                    Color color = objectLookingAt.GetComponent<MeshRenderer>().material.color;
-                    objectLookingAt.GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, Mathf.Lerp(color.a, 0f, 0.1f));
+                    if (objectLookingAt == hit.transform.gameObject)
+                    {
+                        objectLookingAt = hit.transform.gameObject;
+                        Color color = objectLookingAt.GetComponent<MeshRenderer>().material.color;
+                        objectLookingAt.GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, Mathf.Lerp(color.a, 0f, 0.1f));
+                    }
+                    else
+                    {
+                        Color color = objectLookingAt.GetComponent<MeshRenderer>().material.color;
+                        objectLookingAt.GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, 1f);
+                        objectLookingAt = hit.transform.gameObject;
+                        color = objectLookingAt.GetComponent<MeshRenderer>().material.color;
+                        objectLookingAt.GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, Mathf.Lerp(color.a, 0f, 0.1f));
+                    }
                 }
                 else
                 {
-                    Color color = objectLookingAt.GetComponent<MeshRenderer>().material.color;
-                    objectLookingAt.GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, 1f);
                     objectLookingAt = hit.transform.gameObject;
-                    color = objectLookingAt.GetComponent<MeshRenderer>().material.color;
+                    Color color = objectLookingAt.GetComponent<MeshRenderer>().material.color;
                     objectLookingAt.GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, Mathf.Lerp(color.a, 0f, 0.1f));
                 }
-            }
-            else
-            {
-                objectLookingAt = hit.transform.gameObject;
-                Color color = objectLookingAt.GetComponent<MeshRenderer>().material.color;
-                objectLookingAt.GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, Mathf.Lerp(color.a, 0f, 0.1f));
             }
         }
     }
