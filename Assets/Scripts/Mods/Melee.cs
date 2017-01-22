@@ -7,7 +7,7 @@ public class Melee : Mod {
     [SerializeField] Collider hitBox;
     [SerializeField, Range(0f,2f)] float timeHitBoxIsActive;
     [SerializeField, Range(0f,2f)] float timeBetweenStrikes;
-    [SerializeField, Range(500f,10000f)] float forwardForce;
+    [SerializeField, Range(100f,1000f)] float forwardForce;
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +28,7 @@ public class Melee : Mod {
                 moveDir = transform.forward;
             }
 
-            joystickMovement.Dash(moveDir * forwardForce);
+            joystickMovement.AddExternalForce(moveDir * forwardForce, 0.4f);
             hitBox.enabled = true;
             Invoke("TurnOffHitBox", timeHitBoxIsActive);
             Invoke("ReactivateMovement", timeBetweenStrikes);
@@ -40,6 +40,5 @@ public class Melee : Mod {
     }    
     void ReactivateMovement() {
         canActivate = true;
-        joystickMovement.EnableMovement();
     }
 }

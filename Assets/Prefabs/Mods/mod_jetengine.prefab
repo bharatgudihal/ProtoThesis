@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 33474558227190434}
   - component: {fileID: 23205294164687924}
   - component: {fileID: 95951909546492766}
-  - component: {fileID: 114787560467727188}
+  - component: {fileID: 114803813494623150}
   m_Layer: 0
   m_Name: mod_jetengine
   m_TagString: Untagged
@@ -140,7 +140,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114787560467727188
+--- !u!114 &114803813494623150
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -148,17 +148,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1528073891157412}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca343ada9ab7cb24b9544a248971ec93, type: 3}
+  m_Script: {fileID: 11500000, guid: 6498969c2757c4a4c9df7cb5ac62b867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   myModSpot: 1
   isAttached: 1
   joystickMovement: {fileID: 0}
   rigid: {fileID: 0}
-  capsule: {fileID: 0}
-  gravity: 0
-  jumpForce: 360
-  velocity: {x: 0, y: 0, z: 0}
-  noAxisInput: 0
-  isGrounded: 0
-  distToGround: 0
