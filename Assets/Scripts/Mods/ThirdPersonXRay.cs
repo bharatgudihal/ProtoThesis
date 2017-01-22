@@ -51,8 +51,10 @@ public class ThirdPersonXRay : Mod
 
     public override void DeActivate()
     {
-        Color color = objectLookingAt.GetComponent<MeshRenderer>().material.color;
-        objectLookingAt.GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, 1f);
+        if (objectLookingAt!=null) {
+            Color color = objectLookingAt.GetComponent<MeshRenderer>().material.color;
+            objectLookingAt.GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, 1f);
+        }
     }
 
     public override void Fatigue()
