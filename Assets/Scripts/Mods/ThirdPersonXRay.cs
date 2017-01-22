@@ -23,7 +23,7 @@ public class ThirdPersonXRay : Mod
         RaycastHit[] hits = Physics.RaycastAll(playerCamera.transform.position, playerCamera.transform.forward);
         foreach (RaycastHit hit in hits)
         {
-            if (hit.transform.tag != "Player")
+            if (hit.transform.tag == "Wall")
             {
                 if (objectLookingAt != null)
                 {

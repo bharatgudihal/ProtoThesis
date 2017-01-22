@@ -10,6 +10,7 @@ TagManager:
   - Mod
   - Undefined
   - projectile
+  - Wall
   layers:
   - Default
   - TransparentFX
