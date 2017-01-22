@@ -45,12 +45,10 @@ public class Melee : Mod {
     }
 
     public override void DeActivate()
-    {
-        throw new NotImplementedException();
+    {        
     }
 
     public override void Fatigue()
-    {
-        throw new NotImplementedException();
+    {        
     }
 }

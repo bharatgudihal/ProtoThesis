@@ -26,6 +26,8 @@ public abstract class Mod : MonoBehaviour
 
     public float health = 100f;
 
+    public bool isEnabled;
+
     private void Awake()
     {
 
@@ -40,22 +42,25 @@ public abstract class Mod : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetButton(Controls.Up) && myModSpot == ModSpot.Up) ||
-            (Input.GetButton(Controls.Down) && myModSpot == ModSpot.Down) ||
-            (Input.GetButton(Controls.Left) && myModSpot == ModSpot.Left) ||
-            (Input.GetButton(Controls.Right) && myModSpot == ModSpot.Right))
+        if (isEnabled)
         {
-
-            Activate();
-            Fatigue();
-            if(health <= 0)
+            if (!Input.GetButton("RightBumper") && ((Input.GetButton(Controls.Up) && myModSpot == ModSpot.Up) ||
+                (Input.GetButton(Controls.Down) && myModSpot == ModSpot.Down) ||
+                (Input.GetButton(Controls.Left) && myModSpot == ModSpot.Left) ||
+                (Input.GetButton(Controls.Right) && myModSpot == ModSpot.Right)))
             {
-                Dettach();
+
+                Activate();
+                Fatigue();
+                if (health <= 0)
+                {
+                    Dettach();
+                }
             }
-        }
-        if (Input.GetButtonUp("Up"))
-        {
-            DeActivate();
+            /*if (Input.GetButtonUp("Up"))
+            {
+                DeActivate();
+            }*/
         }
     }
 
