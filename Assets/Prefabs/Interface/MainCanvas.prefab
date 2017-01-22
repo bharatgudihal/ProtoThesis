@@ -2377,6 +2377,7 @@ MonoBehaviour:
   mod2Image: {fileID: 114432918176882410}
   mod3Image: {fileID: 114997628916765664}
   mod4Image: {fileID: 114576807371234444}
+  noSpriteImage: {fileID: 21300000, guid: 562e66b552db9644b8b2698d2a856a4b, type: 3}
   grenadeIcons:
   - {fileID: 21300000, guid: f6137c7c0610c8343994e1e977b1ae00, type: 3}
   - {fileID: 21300000, guid: d9f9ea7b148d2c942a4426526fb6ce15, type: 3}
@@ -2398,9 +2399,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f92f9abfd62c2874a81fb3b4b73854bd, type: 3}
   - {fileID: 21300000, guid: d6eae685cd90f4844be1a2a0ff5a5a14, type: 3}
   xRayIcons:
-  - {fileID: 21300000, guid: caace48667e51134fad2e679d3f86124, type: 3}
-  - {fileID: 21300000, guid: 35de838a217c36f45b17494d4e7a1c6a, type: 3}
-  - {fileID: 21300000, guid: ca7ffc6039ac2be4dadf8d14ae52ad3a, type: 3}
+  - {fileID: 21300000, guid: 62442629711867943ab53f3982cd50ed, type: 3}
+  - {fileID: 21300000, guid: cef0fc53f5c66964c820459b9f273246, type: 3}
+  - {fileID: 21300000, guid: 4c8d2b7a5c5bba642b2e9228f5fd84d5, type: 3}
   rocketLauncherIcons:
   - {fileID: 21300000, guid: e62de15e727642340a6e796d2d5c6a4a, type: 3}
   - {fileID: 21300000, guid: 5f653e9b6082d75489d0c8367e4c440d, type: 3}

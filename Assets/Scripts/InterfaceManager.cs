@@ -35,6 +35,9 @@ public class InterfaceManager : MonoBehaviour {
     [SerializeField]
     Image mod1Image, mod2Image, mod3Image, mod4Image;
 
+    [SerializeField]
+    Sprite noSpriteImage;
+
     //0 = ready, 1 = using, 2 = empty
     [SerializeField]
     Sprite[] grenadeIcons = new Sprite[3];
@@ -114,7 +117,7 @@ public class InterfaceManager : MonoBehaviour {
     private void Awake()
     {
         SetModTypeInSlot(ModSpot.Down, ModTypes.GRENADE_LAUNCHER);
-        SetModTypeInSlot(ModSpot.Left, ModTypes.JET_ENGINE);
+        SetModTypeInSlot(ModSpot.Left, ModTypes.NONE);
         SetModTypeInSlot(ModSpot.Right, ModTypes.ROCKET_LAUNCHER);
         SetModTypeInSlot(ModSpot.Up, ModTypes.SWORD);
         //Set initial state of counters
@@ -122,7 +125,11 @@ public class InterfaceManager : MonoBehaviour {
         UpdateCounterAndSprites(ModSpot.Left);
         UpdateCounterAndSprites(ModSpot.Right);
         UpdateCounterAndSprites(ModSpot.Up);
-        
+        mod1AmmoSlider.value = masterMod1Counter;
+        mod2AmmoSlider.value = masterMod2Counter;
+        mod3AmmoSlider.value = masterMod3Counter;
+        mod4AmmoSlider.value = masterMod4Counter;
+
     }
 
     // Use this for initialization
@@ -300,26 +307,30 @@ public class InterfaceManager : MonoBehaviour {
         switch (i_toUpdate)
         {
             case ModSpot.Down:
-                if(mod1Counter == 0)
+                
+                if (mod1Counter == 0 && slot1Type != ModTypes.NONE)
                 {
                     SetUnavailableSprite(i_toUpdate);
                 }
                 break;
             case ModSpot.Left:
-                if (mod2Counter == 0)
+                if (mod2Counter == 0 && slot2Type != ModTypes.NONE)
                 {
+                    mod2AmmoSlider.value = 0;
                     SetUnavailableSprite(i_toUpdate);
                 }
                 break;
             case ModSpot.Right:
-                if (mod3Counter == 0)
+                if (mod3Counter == 0 && slot3Type != ModTypes.NONE)
                 {
+                    mod3AmmoSlider.value = 0;
                     SetUnavailableSprite(i_toUpdate);
                 }
                 break;
             case ModSpot.Up:
-                if (mod4Counter == 0)
+                if (mod4Counter == 0 && slot4Type != ModTypes.NONE)
                 {
+                    mod4AmmoSlider.value = 0;
                     SetUnavailableSprite(i_toUpdate);
                 }
                 break;
@@ -393,6 +404,9 @@ public class InterfaceManager : MonoBehaviour {
                 break;
             case ModTypes.ROCKET_LAUNCHER:
                 spriteToSet = rocketLauncherIcons[0];
+                break;
+            case ModTypes.NONE:
+                spriteToSet = noSpriteImage;
                 break;
         }
 
@@ -583,6 +597,9 @@ public class InterfaceManager : MonoBehaviour {
                 break;
             case ModTypes.ROCKET_LAUNCHER:
                 count = rocketLauncherUseCount;
+                break;
+            case ModTypes.NONE:
+                count = 0;
                 break;
 
         }
