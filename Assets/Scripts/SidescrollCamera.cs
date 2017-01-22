@@ -5,7 +5,7 @@ using UnityEngine;
 public class SidescrollCamera : MonoBehaviour {
 
     private JoystickMovement player;
-    [HideInInspector] public Vector3 distance;
+    public Vector3 distance;
 
     void Awake()
     {

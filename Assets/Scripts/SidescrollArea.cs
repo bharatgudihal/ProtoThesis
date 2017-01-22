@@ -26,18 +26,16 @@ public class SidescrollArea : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && !isSidescrolling)
+        if (other.tag == "Player" && !player.GetComponent<JoystickMovement>().isSidescrolling)
         {
-            
+            LeanTween.cancel(Camera.main.gameObject);
             player.transform.position = new Vector3(lockToAxis.x, player.position.y, lockToAxis.z);
             LeanTween.move(Camera.main.gameObject, newCameraPosition.position, timeTaken).setOnComplete(SetCameraActive);
             LeanTween.rotate(Camera.main.gameObject, newCameraPosition.eulerAngles, timeTaken).setOnComplete(SetCameraActive);
             tweenTimer = 0f;
             mainCamera.GetComponent<OverheadCamera>().enabled = false;
-            // mainCamera.GetComponent<SidescrollCamera>().enabled = true;
             mainCamera.GetComponent<SidescrollCamera>().SetCameraPosition(newCameraPosition.position);
             other.GetComponent<JoystickMovement>().isSidescrolling = true;
-            isSidescrolling = true;
             positionWhenPlayerHitArea = other.transform.position;
         }
     }
