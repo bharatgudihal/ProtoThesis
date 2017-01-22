@@ -14,7 +14,7 @@ public class Thruster : Mod {
     {
         if (canActivate)
         {
-            Vector3 forceDirection = Camera.main.transform.TransformDirection(transform.parent.forward * thrustForce);
+            Vector3 forceDirection = Camera.main.transform.TransformDirection(-transform.parent.forward * thrustForce);
             joystickMovement.AddExternalForce(forceDirection);
             canActivate = false;
             Invoke("ReActivate", .3f);

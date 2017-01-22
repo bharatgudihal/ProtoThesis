@@ -5,7 +5,7 @@ using UnityEngine;
 public class JoystickMovement : MonoBehaviour {
 
     
-
+    [SerializeField] Transform foot;
     [SerializeField] float speed;
     public bool noAxisInput;
     public bool isSidescrolling;
@@ -72,6 +72,7 @@ public class JoystickMovement : MonoBehaviour {
         movement = movement.normalized;
 
         rigid.velocity = movement * speed * Time.deltaTime + GetExternalForceSum();
+        isGrounded = IsGrounded();
         //rigid.velocity += new Vector3(rigid.velocity.x, rigidY, rigid.velocity.z);
 
     }
@@ -98,5 +99,43 @@ public class JoystickMovement : MonoBehaviour {
             yield return null;
         }
         externalForces[currentIndex] = Vector3.zero;
+    }
+
+    IEnumerator ApplyGravity() {
+        isFalling = true;
+        int currentIndex = externalForces.FindIndex(vec => vec == Vector3.zero);
+        float timeElapsed = 0f;
+        float gravity = 9.81f;
+        while (!isGrounded) {
+            externalForces[currentIndex] = Vector3.down * (gravity * timeElapsed);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+        isFalling = false;
+        externalForces[currentIndex] = Vector3.zero;
+    }
+
+    RaycastHit hitInfo;
+    public bool isGrounded;
+    bool isFalling=false;
+    float sphereRadius = 0.1f;
+    public bool IsGrounded()
+    {
+        Collider[] cols = Physics.OverlapSphere(foot.transform.position, sphereRadius);
+        for (int i = 0; i < cols.Length; i++) {
+            if (cols[i].gameObject.layer != (int)Layers.ModMan) {
+                return true;
+            }
+        }
+        if (!isFalling) {
+            StartCoroutine(ApplyGravity());
+        }
+        return false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(foot.transform.position, sphereRadius);
     }
 }
