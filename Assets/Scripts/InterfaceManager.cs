@@ -32,15 +32,6 @@ public class InterfaceManager : MonoBehaviour {
     [SerializeField]
     Image mod1Image, mod2Image, mod3Image, mod4Image;
 
-    [SerializeField]
-    Sprite activatedSprite;
-
-    [SerializeField]
-    Sprite defaultSprite;
-
-    [SerializeField]
-    Sprite usedSprite;
-
     //0 = ready, 1 = using, 2 = empty
     [SerializeField]
     Sprite[] grenadeIcons = new Sprite[3];
@@ -77,21 +68,43 @@ public class InterfaceManager : MonoBehaviour {
     [HideInInspector]
     public bool mod4Available = false; //Is mod4 available? - Up
 
-    [SerializeField]
-    int mod1Counter = 3; //how many times can you use mod1?
-    [SerializeField]
-    int mod2Counter = 3; //how many times can you use mod2?
-    [SerializeField]
-    int mod3Counter = 3; //how many times can you use mod3?
-    [SerializeField]
-    int mod4Counter = 3; //how many times can you use mod4?
-
+  
     //TODO: This shouldn't be set upon object instantiation, but rather checked against
     //a back end keeping track of which mods are set in which slots
     ModTypes slot1Type = ModTypes.NONE;
     ModTypes slot2Type = ModTypes.NONE;
     ModTypes slot3Type = ModTypes.NONE;
     ModTypes slot4Type = ModTypes.NONE;
+
+    #region UseCounters
+
+    /// <summary>
+    /// For designers
+    /// </summary>
+    [SerializeField]
+    int grenadeLauncherUses = 7;
+    [SerializeField]
+    int mashotGunUses = 15;
+    [SerializeField]
+    int swordUseCount = 4;
+    [SerializeField]
+    int jetUseCount = 7;
+    [SerializeField]
+    int shieldUseCount = 5;
+    [SerializeField]
+    int xRayUseCount = 11;
+    [SerializeField]
+    int rocketLauncherUseCount = 10;
+
+    /// <summary>
+    /// private references
+    /// </summary>
+    int mod1Counter = 999;
+    int mod2Counter = 999;
+    int mod3Counter = 999;
+    int mod4Counter = 999;
+
+    #endregion
 
     private void Awake()
     {
@@ -192,28 +205,28 @@ public class InterfaceManager : MonoBehaviour {
                 if (mod1Counter <= 0)
                     return;
                 mod1Available = true;
-                mod1CooldownTimer = modCooldownTime;
+                mod1CooldownTimer = (int)slot1Type;
                 mod1Counter--;
                 break;
             case ModSpot.Left:
                 if (mod2Counter <= 0)
                     return;
                 mod2Available = true;
-                mod2CooldownTimer = modCooldownTime;
+                mod2CooldownTimer = (int)slot2Type;
                 mod2Counter--;
                 break;
             case ModSpot.Right:
                 if (mod3Counter <= 0)
                     return;
                 mod3Available = true;
-                mod3CooldownTimer = modCooldownTime;
+                mod3CooldownTimer = (int)slot3Type;
                 mod3Counter--;
                 break;
             case ModSpot.Up:
                 if (mod4Counter <= 0)
                     return;
                 mod4Available = true;
-                mod4CooldownTimer = modCooldownTime;
+                mod4CooldownTimer = (int)slot4Type;
                 mod4Counter--;
                 break;
 
@@ -236,27 +249,24 @@ public class InterfaceManager : MonoBehaviour {
         {
             case ModSpot.Down:
                 mod1Available = false;
-                mod1Image.sprite = defaultSprite;
                 mod1Slider.value = 1f;
                 break;
             case ModSpot.Left:
                 mod2Available = false;
-                mod2Image.sprite = defaultSprite;
                 mod2Slider.value = 1f;
                 break;
             case ModSpot.Right:
                 mod3Available = false;
-                mod3Image.sprite = defaultSprite;
                 mod3Slider.value = 1f;
                 break;
             case ModSpot.Up:
                 mod4Available = false;
-                mod4Image.sprite = defaultSprite;
                 mod4Slider.value = 1f;
                 break;
 
         }
 
+        SetInitialReadySlotGraphic(i_toReset);
         UpdateCounterAndSprites(i_toReset);
     }
 
@@ -329,6 +339,7 @@ public class InterfaceManager : MonoBehaviour {
         }
 
         SetInitialReadySlotGraphic(i_toSet);
+        SetModCounter(i_toSet);
     }
 
     void SetInitialReadySlotGraphic(ModSpot i_toSet)
@@ -518,4 +529,77 @@ public class InterfaceManager : MonoBehaviour {
                 break;
         }
     }
+
+    void SetModCounter(ModSpot i_toSet)
+    {
+        ModTypes typeToSet = ModTypes.NONE;
+        int count = 0;
+
+        //which type are we setting
+        switch (i_toSet)
+        {
+            case ModSpot.Down:
+                typeToSet = slot1Type;
+                break;
+            case ModSpot.Left:
+                typeToSet = slot2Type;
+                break;
+            case ModSpot.Right:
+                typeToSet = slot3Type;
+                break;
+            case ModSpot.Up:
+                typeToSet = slot4Type;
+                break;
+        }
+
+        //how much?
+        switch (typeToSet)
+        {
+            case ModTypes.GRENADE_LAUNCHER:
+                count = grenadeLauncherUses;
+                break;
+            case ModTypes.MASHOT_GUN:
+                count =  mashotGunUses;
+                break;
+            case ModTypes.SWORD:
+                count = swordUseCount;
+                break;
+            case ModTypes.JET_ENGINE:
+                count = jetUseCount;
+                break;
+            case ModTypes.SHIELD:
+                count = shieldUseCount;
+                break;
+            case ModTypes.X_RAY:
+                count = xRayUseCount;
+                break;
+            case ModTypes.ROCKET_LAUNCHER:
+                count = rocketLauncherUseCount;
+                break;
+
+        }
+
+        //set counter
+        switch (i_toSet)
+        {
+            case ModSpot.Down:
+                mod1Counter = count;
+                break;
+            case ModSpot.Left:
+                mod2Counter = count;
+                break;
+            case ModSpot.Right:
+                mod3Counter = count;
+                break;
+            case ModSpot.Up:
+                mod4Counter = count;
+                break;
+        }
+
+
+
+
+
+    }
+
 }
