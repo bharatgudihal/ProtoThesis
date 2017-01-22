@@ -47,6 +47,47 @@ public class ModManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        CheckForPickupCommand();
+        CheckForDropCommand();
+    }
+
+    void CheckForDropCommand()
+    {
+        if (Input.GetButton("LeftBumper"))
+        {
+            if (Input.GetButtonDown("Up"))
+            {
+                if (upMod != null)
+                {
+                    DetachMod(upMod);
+                }
+            }
+            if (Input.GetButtonDown("Down"))
+            {
+                if (downMod != null)
+                {
+                    DetachMod(downMod);
+                }
+            }
+            if (Input.GetButtonDown("Left"))
+            {
+                if (leftMod != null)
+                {
+                    DetachMod(leftMod);
+                }
+            }
+            if (Input.GetButtonDown("Right"))
+            {
+                if (rightMod != null)
+                {
+                    DetachMod(rightMod);
+                }
+            }
+        }
+    }
+
+    void CheckForPickupCommand()
+    {
         if (Input.GetButton("RightBumper"))
         {
             if (currentMod != null)
@@ -69,7 +110,7 @@ public class ModManager : MonoBehaviour {
                     }
                     downMod = currentMod;
                     downMod.myModSpot = ModSpot.Down;
-                    AttachMod(downMod);                    
+                    AttachMod(downMod);
                 }
                 if (Input.GetButtonDown("Left"))
                 {
@@ -93,7 +134,7 @@ public class ModManager : MonoBehaviour {
                 }
             }
         }
-	}
+    }
 
     void DetachMod(Mod mod)
     {
