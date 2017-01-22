@@ -116,7 +116,7 @@ public class JoystickMovement : MonoBehaviour {
     }
 
     RaycastHit hitInfo;
-    public bool isGrounded;
+    bool isGrounded;
     bool isFalling=false;
     float sphereRadius = 0.1f;
     public bool IsGrounded()
