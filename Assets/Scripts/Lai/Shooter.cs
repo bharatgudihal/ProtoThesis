@@ -5,9 +5,13 @@ using UnityEngine;
 public class Shooter : InteractiveObject 
 {
 	public GameObject i_Bullet;
+    bool IsActive = false;
 
-	// Use this for initialization
-	void Awake()
+    public float Frequency;
+    private float TimeCounting = 0;
+
+    // Use this for initialization
+    void Awake()
 	{
 		pad = new PressurePad[TriggerObjects.Length];
 	}
@@ -23,24 +27,49 @@ public class Shooter : InteractiveObject
 	// Update is called once per frame
 	void Update () 
 	{
-		bool success = true;
+        bool success = true;
 
-		for (int i = 0; i < pad.Length; i++) 
-		{
-			if (pad[i].IsTrigger == false) 
-			{
-				success = false;
-			}
-		}
+        if (IsActive == false)
+        {
+            for (int i = 0; i < pad.Length; i++)
+            {
+                if (pad[i].IsTrigger == false)
+                {
+                    success = false;
+                }
+            }
+        }
 
 		if (success == true) 
 		{
-			Action ();
+            IsActive = true;
+            success = false;
+
+
+            if (TimeCounting <= Frequency)
+            {
+                TimeCounting += Time.deltaTime;
+            }
+            else
+            {
+                TimeCounting = 0.0f;
+                Action();
+            }
 		}
 	}
 
 	public override void Action()
 	{
-		GameObject instance = Instantiate (i_Bullet, transform.position, transform.rotation) as GameObject;
+//		GameObject instance = Instantiate (i_Bullet, transform.position, transform.rotation) as GameObject;
+
+		GameObject instance = BulletPool.instance.GetBullet ();
+
+        if (instance != null)
+        {
+            instance.SetActive(true);
+            instance.tag = "projectile";
+            instance.transform.rotation = transform.rotation;
+            instance.transform.position = transform.position;
+        }
 	}
 }

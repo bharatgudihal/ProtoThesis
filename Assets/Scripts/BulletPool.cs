@@ -12,7 +12,7 @@ public class BulletPool : MonoBehaviour
     [SerializeField]
     int poolSize;
 
-    List<GameObject> bulletPool;
+	List<GameObject> bulletPool = new List<GameObject>();
 
     private void Awake()
     {
