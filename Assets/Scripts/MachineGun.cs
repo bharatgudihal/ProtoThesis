@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MachineGun : Mod
 {
+
+	[SerializeField, Range(10f,1000f)] float kickbackForce; 
 	public GameObject bullet;
 	public float Frequency;
 
@@ -24,8 +26,12 @@ public class MachineGun : Mod
 		}
 		else 
 		{
+			Vector3 forceDirection = Camera.main.transform.TransformDirection(- i_RootObject.transform.forward * kickbackForce);
+			joystickMovement.AddExternalForce(forceDirection);
+
 			TimeCounting = 0.0f;
 			GameObject instance = Instantiate (bullet, transform.position, i_RootObject.transform.rotation) as GameObject;
+			instance.transform.rotation = i_RootObject.transform.rotation * Quaternion.Euler (-90, 0, 0);
 //			StartCoroutine (Recoil ());
 		}
 	}
@@ -33,6 +39,7 @@ public class MachineGun : Mod
 	public override void DeActivate()
 	{
 		base.DeActivate ();
+
 	}
 
 	public override void Fatigue()
