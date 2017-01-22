@@ -24,9 +24,9 @@ public class Melee : Mod {
     public override void Activate() {
         if (canActivate) {
             canActivate = false;
-            Vector3 moveDir = Camera.main.transform.TransformDirection(transform.forward);
+            Vector3 moveDir = Camera.main.transform.TransformDirection(transform.parent.forward);
             if (myModSpot == ModSpot.Up || myModSpot == ModSpot.Down) {
-                moveDir = transform.forward;
+                moveDir = transform.parent.forward;
             }
 
             joystickMovement.AddExternalForce(moveDir * forwardForce, 0.4f);
