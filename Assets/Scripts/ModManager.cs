@@ -101,7 +101,7 @@ public class ModManager : MonoBehaviour {
         mod.transform.parent = null;
         //upMod.GetComponent<Rigidbody>().detectCollisions = true;
         mod.isEnabled = false;
-        mod.GetComponent<CapsuleCollider>().enabled = true;
+        //mod.GetComponent<CapsuleCollider>().enabled = true;
     }
 
     void AttachMod(Mod mod)
@@ -109,7 +109,7 @@ public class ModManager : MonoBehaviour {
         mod.isEnabled = true;
         mod.Attach(joystickMovement);
         mod.transform.gameObject.layer = (int)Layers.ModMan;
-		mod.GetComponent<Collider>().enabled = false;        
+		//mod.GetComponent<Collider>().enabled = false;        
         switch (mod.myModSpot)
         {
             case ModSpot.Up:                
