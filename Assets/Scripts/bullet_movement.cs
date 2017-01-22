@@ -4,18 +4,28 @@ using UnityEngine;
 
 public class bullet_movement : MonoBehaviour
 {
-    public float velocity = 300.0f;
+    public float velocity = 25.0f;
     private Rigidbody m_Rigidbody;
-	// Use this for initialization
+    // Use this for initialization
 
-	void Start ()
+    private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
+        gameObject.SetActive(false);
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    void OnEnable()
     {
-		m_Rigidbody.AddForce(transform.forward * velocity);
+//        m_Rigidbody.AddForce(transform.forward * velocity);
+    }
+
+    void OnDisable()
+    {
+    }
+
+    // Update is called once per frame
+    void FixedUpdate ()
+    {
+        transform.Translate(velocity * Vector3.forward * Time.fixedDeltaTime);
 	}
 }

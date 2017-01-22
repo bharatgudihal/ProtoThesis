@@ -30,10 +30,24 @@ public class MachineGun : Mod
 			joystickMovement.AddExternalForce(forceDirection);
 
 			TimeCounting = 0.0f;
-			GameObject instance = Instantiate (bullet, transform.position, i_RootObject.transform.rotation) as GameObject;
-			instance.transform.rotation = i_RootObject.transform.rotation * Quaternion.Euler (-90, 0, 0);
-//			StartCoroutine (Recoil ());
-		}
+
+            GameObject instance = BulletPool.instance.GetBullet();
+
+            if (instance != null)
+            {
+                instance.SetActive(true);
+                instance.tag = "Untagged";
+                instance.transform.rotation = i_RootObject.transform.rotation;
+                instance.transform.position = transform.position;
+            }
+
+
+            //			GameObject instance = Instantiate (bullet, transform.position, i_RootObject.transform.rotation) as GameObject;
+            //            instance.SetActive(true);
+
+            //			instance.transform.rotation = i_RootObject.transform.rotation * Quaternion.Euler (-90, 0, 0);
+            //			StartCoroutine (Recoil ());
+        }
 	}
 
 	public override void DeActivate()
