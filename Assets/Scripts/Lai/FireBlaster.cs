@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shooter : InteractiveObject 
+public class FireBlaster : InteractiveObject 
 {
-	public GameObject i_Bullet;
+	GameObject m_ParticleObject;
 
 	// Use this for initialization
 	void Awake()
@@ -14,12 +14,14 @@ public class Shooter : InteractiveObject
 
 	void Start () 
 	{
+		m_ParticleObject = transform.GetChild (0).gameObject;
+
 		for (int i = 0; i < pad.Length; i++) 
 		{
 			pad[i] = TriggerObjects[i].GetComponent<PressurePad> ();
 		}
 	}
-	
+
 	// Update is called once per frame
 	void Update () 
 	{
@@ -41,6 +43,6 @@ public class Shooter : InteractiveObject
 
 	public override void Action()
 	{
-		GameObject instance = Instantiate (i_Bullet, transform.position, transform.rotation) as GameObject;
+		m_ParticleObject.SetActive (true);
 	}
 }
