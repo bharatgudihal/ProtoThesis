@@ -1962,11 +1962,43 @@ MonoBehaviour:
   activatedSprite: {fileID: 21300000, guid: 9932f6c041e84094a9d0b89f8f50d02e, type: 3}
   defaultSprite: {fileID: 21300000, guid: ff0d5f5421635e241bc1cda0203be100, type: 3}
   usedSprite: {fileID: 21300000, guid: b1f94361d91ae9a4987087fded84f6cf, type: 3}
+  grenadeIcons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  mashotgunIcons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  swordIcons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  jetIcons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  shieldIcons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  xRayIcons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  rocketLauncherIcons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   mod1UsesText: {fileID: 114899604068574150}
   mod2UsesText: {fileID: 114865480128582662}
   mod3UsesText: {fileID: 114772632608257544}
   mod4UsesText: {fileID: 114325441070899528}
   playerHealthSlider: {fileID: 114119546057714032}
+  mod1Available: 0
+  mod2Available: 0
+  mod3Available: 0
+  mod4Available: 0
   mod1Counter: 3
   mod2Counter: 3
   mod3Counter: 3
