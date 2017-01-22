@@ -44,7 +44,7 @@ public abstract class Mod : MonoBehaviour
     {
         if (isEnabled)
         {
-            if (!Input.GetButton("RightBumper") && ((Input.GetButton(Controls.Up) && myModSpot == ModSpot.Up) ||
+            if ((!Input.GetButton("RightBumper") && !Input.GetButton("LeftBumper")) && ((Input.GetButton(Controls.Up) && myModSpot == ModSpot.Up) ||
                 (Input.GetButton(Controls.Down) && myModSpot == ModSpot.Down) ||
                 (Input.GetButton(Controls.Left) && myModSpot == ModSpot.Left) ||
                 (Input.GetButton(Controls.Right) && myModSpot == ModSpot.Right)))
