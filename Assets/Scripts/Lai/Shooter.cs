@@ -5,7 +5,7 @@ using UnityEngine;
 public class Shooter : InteractiveObject 
 {
 	public GameObject i_Bullet;
-    bool IsActive = false;
+//    bool IsActive = false;
 
     public float Frequency;
     private float TimeCounting = 0;
