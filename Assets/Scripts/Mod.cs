@@ -57,10 +57,13 @@ public abstract class Mod : MonoBehaviour
                     Dettach();
                 }
             }
-            /*if (Input.GetButtonUp("Up"))
+            if ((Input.GetButtonUp(Controls.Up) && myModSpot == ModSpot.Up) ||
+                (Input.GetButtonUp(Controls.Down) && myModSpot == ModSpot.Down) ||
+                (Input.GetButtonUp(Controls.Left) && myModSpot == ModSpot.Left) ||
+                (Input.GetButtonUp(Controls.Right) && myModSpot == ModSpot.Right))
             {
                 DeActivate();
-            }*/
+            }
         }
     }
 
