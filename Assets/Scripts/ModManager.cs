@@ -131,7 +131,6 @@ public class ModManager : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        print(other);
         if(other.tag == "Mod")
         {
             currentMod = other.GetComponent<Mod>();
