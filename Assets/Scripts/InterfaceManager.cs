@@ -59,13 +59,13 @@ public class InterfaceManager : MonoBehaviour {
     float modCooldownTime = 1f; //what is the cooldown time for a mod?
 
     [HideInInspector]
-    public bool mod1Available = false; //Is mod1 available? - Down
+    public bool mod1Available = true; //Is mod1 available? - Down
     [HideInInspector]
-    public bool mod2Available = false; //Is mod2 available? - Left
+    public bool mod2Available = true; //Is mod2 available? - Left
     [HideInInspector]
-    public bool mod3Available = false; //Is mod3 available? - Right
+    public bool mod3Available = true; //Is mod3 available? - Right
     [HideInInspector]
-    public bool mod4Available = false; //Is mod4 available? - Up
+    public bool mod4Available = true; //Is mod4 available? - Up
 
   
     //TODO: This shouldn't be set upon object instantiation, but rather checked against
@@ -113,11 +113,16 @@ public class InterfaceManager : MonoBehaviour {
 
     private void Awake()
     {
+        SetModTypeInSlot(ModSpot.Down, ModTypes.GRENADE_LAUNCHER);
+        SetModTypeInSlot(ModSpot.Left, ModTypes.JET_ENGINE);
+        SetModTypeInSlot(ModSpot.Right, ModTypes.ROCKET_LAUNCHER);
+        SetModTypeInSlot(ModSpot.Up, ModTypes.SWORD);
         //Set initial state of counters
         UpdateCounterAndSprites(ModSpot.Down);
         UpdateCounterAndSprites(ModSpot.Left);
         UpdateCounterAndSprites(ModSpot.Right);
         UpdateCounterAndSprites(ModSpot.Up);
+        
     }
 
     // Use this for initialization
@@ -127,22 +132,21 @@ public class InterfaceManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-
+        
         //TODO: This sorts of calls should go in the appropriate control manager
-        if (Input.GetKeyDown(KeyCode.Alpha1) && !mod1Available)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && mod1Available)
         {
             FireModOnInterface(ModSpot.Down);
         }
-        if(Input.GetKeyDown(KeyCode.Alpha2) && !mod2Available)
+        if(Input.GetKeyDown(KeyCode.Alpha2) && mod2Available)
         {
             FireModOnInterface(ModSpot.Left);
         }
-        if(Input.GetKeyDown(KeyCode.Alpha3) && !mod3Available)
+        if(Input.GetKeyDown(KeyCode.Alpha3) && mod3Available)
         {
             FireModOnInterface(ModSpot.Right);
         }
-        if(Input.GetKeyDown(KeyCode.Alpha4) && !mod4Available)
+        if(Input.GetKeyDown(KeyCode.Alpha4) && mod4Available)
         {
             FireModOnInterface(ModSpot.Up);
         }
@@ -152,41 +156,41 @@ public class InterfaceManager : MonoBehaviour {
     private void FixedUpdate()
     {
         #region CooldownTimers
-        if (mod1Available)
+        if (!mod1Available)
         {
             mod1CooldownTimer -= Time.deltaTime;
 
-            mod1CooldownSlider.value = mod1CooldownTimer / modCooldownTime;
+            mod1CooldownSlider.value = 1 - (mod1CooldownTimer / modCooldownTime);
             if(mod1CooldownTimer <= 0)
             {
                 ResetMod(ModSpot.Down);
             }
         }
 
-        if (mod2Available)
+        if (!mod2Available)
         {
             mod2CooldownTimer -= Time.deltaTime;
-            mod2CooldownSlider.value = mod2CooldownTimer / modCooldownTime;
+            mod2CooldownSlider.value = 1 - (mod2CooldownTimer / modCooldownTime);
             if (mod2CooldownTimer <= 0)
             {
                 ResetMod(ModSpot.Left);
             }
         }
 
-        if (mod3Available)
+        if (!mod3Available)
         {
             mod3CooldownTimer -= Time.deltaTime;
-            mod3CooldownSlider.value = mod3CooldownTimer / modCooldownTime;
+            mod3CooldownSlider.value = 1 - (mod3CooldownTimer / modCooldownTime);
             if (mod3CooldownTimer <= 0)
             {
                 ResetMod(ModSpot.Right);
             }
         }
 
-        if (mod4Available)
+        if (!mod4Available)
         {
             mod4CooldownTimer -= Time.deltaTime;
-            mod4CooldownSlider.value = mod4CooldownTimer / modCooldownTime;
+            mod4CooldownSlider.value = 1 - (mod4CooldownTimer / modCooldownTime);
             if (mod4CooldownTimer <= 0)
             {
                 ResetMod(ModSpot.Up);
@@ -207,32 +211,32 @@ public class InterfaceManager : MonoBehaviour {
             case ModSpot.Down:
                 if (mod1Counter <= 0)
                     return;
-                mod1Available = true;
-                mod1CooldownTimer = (int)slot1Type;
+                mod1Available = false;
+                mod1CooldownTimer = modCooldownTime;
                 mod1Counter--;
                 mod1AmmoSlider.value = mod1Counter / (float)masterMod1Counter;
                 break;
             case ModSpot.Left:
                 if (mod2Counter <= 0)
                     return;
-                mod2Available = true;
-                mod2CooldownTimer = (int)slot2Type;
+                mod2Available = false;
+                mod2CooldownTimer = modCooldownTime;
                 mod2Counter--;
                 mod2AmmoSlider.value = mod2Counter / (float)masterMod2Counter;
                 break;
             case ModSpot.Right:
                 if (mod3Counter <= 0)
                     return;
-                mod3Available = true;
-                mod3CooldownTimer = (int)slot3Type;
+                mod3Available = false;
+                mod3CooldownTimer = modCooldownTime;
                 mod3Counter--;
                 mod3AmmoSlider.value = mod3Counter / (float)masterMod3Counter;
                 break;
             case ModSpot.Up:
                 if (mod4Counter <= 0)
                     return;
-                mod4Available = true;
-                mod4CooldownTimer = (int)slot4Type;
+                mod4Available = false;
+                mod4CooldownTimer = modCooldownTime;
                 mod4Counter--;
                 mod4AmmoSlider.value = mod4Counter / (float)masterMod4Counter;
                 break;
@@ -255,19 +259,19 @@ public class InterfaceManager : MonoBehaviour {
         switch (i_toReset)
         {
             case ModSpot.Down:
-                mod1Available = false;
+                mod1Available = true;
                 mod1CooldownSlider.value = 1f;
                 break;
             case ModSpot.Left:
-                mod2Available = false;
+                mod2Available = true;
                 mod2CooldownSlider.value = 1f;
                 break;
             case ModSpot.Right:
-                mod3Available = false;
+                mod3Available = true;
                 mod3CooldownSlider.value = 1f;
                 break;
             case ModSpot.Up:
-                mod4Available = false;
+                mod4Available = true;
                 mod4CooldownSlider.value = 1f;
                 break;
 
