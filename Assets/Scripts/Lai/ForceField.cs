@@ -16,8 +16,8 @@ public class ForceField : Mod
 	void OnTriggerEnter(Collider other)
 	{
 		Debug.Log(other);
-		if(m_Field.activeSelf == true && isAttached && other.tag == "projectile")
-			Destroy (other.gameObject);
+        if (m_Field.activeSelf == true && isAttached && other.tag == "projectile")
+            other.gameObject.SetActive(false);
 	}
 
 	public override void Activate()
