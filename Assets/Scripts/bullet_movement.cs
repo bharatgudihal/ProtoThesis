@@ -16,6 +16,6 @@ public class bullet_movement : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        m_Rigidbody.AddForce(transform.forward * velocity);
+		m_Rigidbody.AddForce(transform.forward * velocity);
 	}
 }

@@ -17,7 +17,8 @@ public class Player : MonoBehaviour
 
     public PlayerState state;
 
-    private Rigidbody rigid;
+    [SerializeField] Rigidbody rigid;
+    
 
     public float speed;
     public float gravity;
@@ -27,9 +28,9 @@ public class Player : MonoBehaviour
     public bool noAxisInput;
     public bool isGrounded;
 
-    public float distToGround;
+    //public float distToGround;
 
-    private bool canMove=true;
+    
     private bool usedDoubleJump;
     private float gravityY;
     private float rigidY;
@@ -37,9 +38,8 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-        rigid = GetComponent<Rigidbody>();
         state = PlayerState.JUMPING;
-        distToGround = GetComponent<CapsuleCollider>().bounds.extents.y;
+        //distToGround = capsule.bounds.extents.y;
     }
 
     // Use this for initialization
@@ -49,14 +49,7 @@ public class Player : MonoBehaviour
         rigid.velocity = new Vector3(rigid.velocity.x, rigid.velocity.y + gravity * Time.deltaTime, rigid.velocity.z);
     }
 
-    public void EnableMovement() {
-        canMove = true;
-    }
-
-    public void Dash(Vector3 moveVec) {
-        rigid.AddForce(moveVec);
-        canMove = false;
-    }
+    
 
     // Update is called once per frame
     void Update()
@@ -65,9 +58,9 @@ public class Player : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(h, 0.0f, v);
-        if (!canMove) {
-            movement = Vector3.zero;
-        }
+        //if (!canmove) {
+        //    movement = vector3.zero;
+        //}
         rigidY = rigid.velocity.y;
         isGrounded = IsGrounded();
 
@@ -166,6 +159,6 @@ public class Player : MonoBehaviour
     public bool IsGrounded()
     {
         Debug.DrawRay(transform.position, -Vector3.up, Color.green);
-        return (Physics.Raycast(transform.position, -Vector3.up, out hitInfo, distToGround + 0.005f) && rigid.velocity.y <= 0.01f);
+        return (Physics.Raycast(transform.position, -Vector3.up, out hitInfo, 1 + 0.005f) && rigid.velocity.y <= 0.01f);
     }
 }
