@@ -34,11 +34,11 @@ public class ThirdPersonCameraController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        followDistanceVector = new Vector3(0, 0, -followDistance);
     }
 	
 	// Update is called once per frame
-	void Update () {        
+	void FixedUpdate () {        
+        followDistanceVector = Vector3.forward * -followDistance;
         moveX += Input.GetAxis("Camera X") * sensitivity;
         moveY += Input.GetAxis("Camera Y") * sensitivity;
         moveX = Mathf.Clamp(moveX, -maxY, maxY);
