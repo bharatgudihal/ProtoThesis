@@ -550,6 +550,11 @@ Prefab:
       propertyPath: m_TagString
       value: Mod
       objectReference: {fileID: 0}
+    - target: {fileID: 114635038334670136, guid: d763e74fe714c3044a940e2ff545b985,
+        type: 2}
+      propertyPath: forwardForce
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d763e74fe714c3044a940e2ff545b985, type: 2}
   m_IsPrefabParent: 0
