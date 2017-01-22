@@ -4,6 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - CameraSwitchToSidescroll
+  - CameraSwitchToOverhead
   - Ceiling
   layers:
   - Default
