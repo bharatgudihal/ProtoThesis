@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class ForceField : Mod 
 {
+    [SerializeField, Range(10f, 1000f)]float kickbackForce;
 
-	private GameObject m_Field;
+    private GameObject m_Field;
+    private GameObject i_RootObject;
 
-	// Use this for initialization
-	void Start () 
+    // Use this for initialization
+    void Start () 
 	{
-		m_Field = transform.GetChild (1).gameObject;
+        i_RootObject = transform.root.gameObject;
+        m_Field = transform.GetChild (1).gameObject;
 	}
 
 	void OnTriggerEnter(Collider other)
 	{
         if (m_Field.activeSelf == true && isAttached && other.tag == "projectile")
+        {
+            Vector3 forceDirection = Camera.main.transform.TransformDirection(-i_RootObject.transform.forward * kickbackForce);
+            joystickMovement.AddExternalForce(forceDirection);
             other.gameObject.SetActive(false);
+        }
 	}
 
 	public override void Activate()
