@@ -40,13 +40,6 @@ public class MachineGun : Mod
                 instance.transform.rotation = i_RootObject.transform.rotation;
                 instance.transform.position = transform.position;
             }
-
-
-            //			GameObject instance = Instantiate (bullet, transform.position, i_RootObject.transform.rotation) as GameObject;
-            //            instance.SetActive(true);
-
-            //			instance.transform.rotation = i_RootObject.transform.rotation * Quaternion.Euler (-90, 0, 0);
-            //			StartCoroutine (Recoil ());
         }
 	}
 

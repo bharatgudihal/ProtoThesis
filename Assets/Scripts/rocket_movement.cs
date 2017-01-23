@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class rocket_movement : MonoBehaviour 
 {
-	public float velocity_x = 100.0f;
+	public float velocity = 100.0f;
 	private Rigidbody m_Rigidbody;
 	private float parameter = 1.0f;
 
@@ -17,7 +17,6 @@ public class rocket_movement : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		m_Rigidbody.AddForce(transform.up * velocity_x * parameter);
-		parameter += 0.25f;
-	}
+        transform.Translate(velocity * Vector3.forward * Time.fixedDeltaTime);
+    }
 }
