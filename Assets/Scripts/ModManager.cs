@@ -138,6 +138,8 @@ public class ModManager : MonoBehaviour {
 
     void DetachMod(Mod mod)
     {
+        InterfaceManager.instance.SetModTypeInSlot(mod.myModSpot, ModTypes.NONE);
+        InterfaceManager.instance.SetFatigue(mod.myModSpot, 0f);
         mod.Dettach();
         mod.transform.parent = null;
         //upMod.GetComponent<Rigidbody>().detectCollisions = true;
@@ -154,7 +156,7 @@ public class ModManager : MonoBehaviour {
         switch (mod.myModSpot)
         {
             case ModSpot.Up:                
-                mod.transform.parent = up;       
+                mod.transform.parent = up;      
                 break;
             case ModSpot.Down:
                 mod.transform.parent = down;
@@ -168,6 +170,9 @@ public class ModManager : MonoBehaviour {
         }
         mod.transform.position = Vector3.zero;
         mod.transform.localPosition = Vector3.zero;
+
+        //set icon within the mod interface
+        InterfaceManager.instance.SetModTypeInSlot(mod.myModSpot,mod.type);
     }
 
     private void OnTriggerEnter(Collider other)
