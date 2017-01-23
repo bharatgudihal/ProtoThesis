@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Door : MonoBehaviour 
 {
-	public float maxHeight = 90.0f;
+	public float maxHeight = 120.0f;
 	public float speed = 1.0f;
-	private GameObject axis;
+	private GameObject MovePart;
 	private bool IsOpening = false;
 
 	// Use this for initialization
 	void Start () 
 	{
-		axis = gameObject.transform.parent.gameObject;
+        MovePart = gameObject.transform.GetChild(1).gameObject;
 	}
 	
 	// Update is called once per frame
@@ -21,7 +21,7 @@ public class Door : MonoBehaviour
 		
 	}
 
-	void OnCollisionEnter()
+	void OnTriggerEnter()
 	{
 		if(IsOpening == false)
 			StartCoroutine(openDoor());
@@ -33,7 +33,7 @@ public class Door : MonoBehaviour
 
 		for (float i = 0; i < maxHeight; i += 1.0f) 
 		{
-			transform.Translate (Vector3.up * speed * Time.fixedDeltaTime);
+            MovePart.transform.Translate (Vector3.up * speed * Time.fixedDeltaTime);
 			yield return 0;
 		}
 
@@ -41,11 +41,11 @@ public class Door : MonoBehaviour
 
 		for (float i = 0; i < maxHeight; i += 1.0f) 
 		{
-			transform.Translate (Vector3.down * speed * Time.fixedDeltaTime);
+            MovePart.transform.Translate (Vector3.down * speed * Time.fixedDeltaTime);
 			yield return 0;
 		}
 
 		IsOpening = false;
-	}
+    }
 
 }
