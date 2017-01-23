@@ -5,6 +5,7 @@ using UnityEngine;
 public class Shooter : InteractiveObject 
 {
 	public GameObject i_Bullet;
+    [SerializeField] Transform spawnPoint;
 //    bool IsActive = false;
 
     public float Frequency;
@@ -66,10 +67,10 @@ public class Shooter : InteractiveObject
 
         if (instance != null)
         {
-            instance.SetActive(true);
             instance.tag = "projectile";
             instance.transform.rotation = transform.rotation;
-            instance.transform.position = transform.position;
+            instance.transform.position = spawnPoint.position;
+            instance.SetActive(true);
         }
 	}
 }

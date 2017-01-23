@@ -36,8 +36,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1900442862732096}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.41, y: -0.44, z: -0.78930545}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 17.115711, y: -1.5, z: -6.9781585}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -107,6 +107,7 @@ MonoBehaviour:
   myModSpot: 0
   isAttached: 0
   joystickMovement: {fileID: 0}
+  type: 11
   health: 100
   isEnabled: 0
   decayRate: 0

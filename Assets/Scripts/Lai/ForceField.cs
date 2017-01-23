@@ -21,6 +21,9 @@ public class ForceField : Mod
         if (m_Field.activeSelf == true && isAttached && other.tag == "projectile")
         {
             Vector3 forceDirection = Camera.main.transform.TransformDirection(-i_RootObject.transform.forward * kickbackForce);
+            if (other.GetComponent<Rigidbody>()) {
+                forceDirection = other.GetComponent<Rigidbody>().velocity.normalized * kickbackForce;
+            }
             joystickMovement.AddExternalForce(forceDirection);
             other.gameObject.SetActive(false);
         }

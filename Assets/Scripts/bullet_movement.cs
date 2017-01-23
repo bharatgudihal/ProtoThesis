@@ -12,11 +12,13 @@ public class bullet_movement : MonoBehaviour
     {
         m_Rigidbody = GetComponent<Rigidbody>();
         gameObject.SetActive(false);
+        
     }
 
     void OnEnable()
     {
-//        m_Rigidbody.AddForce(transform.forward * velocity);
+        //        m_Rigidbody.AddForce(transform.forward * velocity);
+        m_Rigidbody.velocity = transform.forward * velocity;
     }
 
     void OnDisable()
@@ -26,6 +28,6 @@ public class bullet_movement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate ()
     {
-        transform.Translate(velocity * Vector3.forward * Time.fixedDeltaTime);
+        //transform.Translate(velocity * Vector3.forward * Time.fixedDeltaTime);
 	}
 }

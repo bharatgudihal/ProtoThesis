@@ -830,6 +830,10 @@ MonoBehaviour:
   maxY: 15
   smoothTime: 0.01
   sensitivity: 3
+  dummyCamera: {fileID: 1379692831}
+  isUpdating: 0
+  positionToMoveTo: {x: 0, y: 0, z: 0}
+  angleToRotateTo: {x: 0, y: 0, z: 0}
 --- !u!1001 &1421622143
 Prefab:
   m_ObjectHideFlags: 0
