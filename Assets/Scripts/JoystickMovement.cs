@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class JoystickMovement : MonoBehaviour {
 
-    
+
     [SerializeField] Transform foot;
     [SerializeField] float speed;
     public bool noAxisInput;
@@ -24,7 +24,7 @@ public class JoystickMovement : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         externalForces = new List<Vector3>();
         for (int i = 0; i < 100; i++) {
             externalForces.Add(Vector3.zero);
@@ -35,7 +35,7 @@ public class JoystickMovement : MonoBehaviour {
 
     private bool canMove = true;
     // Update is called once per frame
-    void Update () {
+    void Update() {
 
         float h = Input.GetAxis("Horizontal");
 
@@ -86,9 +86,55 @@ public class JoystickMovement : MonoBehaviour {
         return totalExternalForce;
     }
 
-    public void AddExternalForce(Vector3 forceVector, float decay=0.1f) {
+    public void AddExternalForce(Vector3 forceVector, float decay = 0.1f) {
         if (canMove) {
             StartCoroutine(AddPsuedoForce(forceVector, decay));
+        }
+    }
+
+    public void AddJetForce(Vector3 constantForce, ModSpot modSpot) {
+        modSpotConstantForceIndices[modSpot] = true;
+        if (modSpot == ModSpot.Down) {
+            isFalling = true;
+        }
+        StartCoroutine(ApplyJetForce(constantForce, modSpot));
+    }
+    public void StopConstantForce(ModSpot modSpot) {
+        modSpotConstantForceIndices[modSpot] = false;
+        if (modSpot == ModSpot.Down) {
+            isFalling = false;
+        }
+    }
+
+    Dictionary<ModSpot, bool> modSpotConstantForceIndices = new Dictionary<ModSpot, bool>() {
+        {ModSpot.Up, false},
+        {ModSpot.Down, false},
+        {ModSpot.Left, false},
+        {ModSpot.Right, false}
+    };
+    IEnumerator ApplyJetForce(Vector3 constantForce, ModSpot modSpot) {
+        int currentIndex = externalForces.FindIndex(vec => vec == Vector3.zero);        
+        while (modSpotConstantForceIndices[modSpot] && externalForces[currentIndex].magnitude < constantForce.magnitude - 0.1f) {
+            externalForces[currentIndex] = Vector3.Lerp(externalForces[currentIndex], constantForce, 0.1f);
+            yield return null;
+        }
+        StartCoroutine(FadeTargetForce(currentIndex));
+
+        float period = 5f;
+        float timePassed = 0f;
+        currentIndex = externalForces.FindIndex(vec => vec == Vector3.zero);
+        while (modSpotConstantForceIndices[modSpot]) {
+            externalForces[currentIndex] = 0.3f*constantForce * -Mathf.Sin((Mathf.PI*2/period) * timePassed);
+            timePassed += Time.deltaTime;
+            yield return null;
+        }
+        StartCoroutine(FadeTargetForce(currentIndex));
+    }
+
+    IEnumerator FadeTargetForce(int targetIndex) {
+        while (externalForces[targetIndex].magnitude > 0.1f) {
+            externalForces[targetIndex] = Vector3.Lerp(externalForces[targetIndex], Vector3.zero, 0.1f);
+            yield return null;
         }
     }
 
@@ -109,7 +155,7 @@ public class JoystickMovement : MonoBehaviour {
         int currentIndex = externalForces.FindIndex(vec => vec == Vector3.zero);
         float timeElapsed = 0f;
         float gravity = 9.81f;
-        while (!isGrounded) {
+        while (!isGrounded && isFalling) {
             externalForces[currentIndex] = Vector3.down * (gravity * timeElapsed);
             timeElapsed += Time.deltaTime;
             yield return null;

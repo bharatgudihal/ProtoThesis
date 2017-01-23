@@ -7,7 +7,9 @@ public class InteractiveObject : MonoBehaviour
 	public GameObject[] TriggerObjects; 
 	protected PressurePad[] pad;
 
-	void Awake()
+    protected bool IsActive = false;
+
+    void Awake()
 	{
 		
 	}

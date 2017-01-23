@@ -21,8 +21,7 @@ GameObject:
   - component: {fileID: 4275001719704550}
   - component: {fileID: 33758226528544884}
   - component: {fileID: 23929810505905306}
-  - component: {fileID: 65391991733989568}
-  - component: {fileID: 114675143148317902}
+  - component: {fileID: 65437330152233612}
   m_Layer: 0
   m_Name: pCube2
   m_TagString: Untagged
@@ -38,6 +37,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4241838710979494}
+  - component: {fileID: 65361735035462062}
+  - component: {fileID: 114543026448674752}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -69,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1878031075453706}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 1.2892544, z: 0}
+  m_LocalPosition: {x: -0, y: 1.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4241838710979494}
@@ -179,7 +180,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1078069556187384}
   m_Mesh: {fileID: 4300002, guid: 45f942d1067a4664d8a557c8d37e83ff, type: 3}
---- !u!65 &65391991733989568
+--- !u!65 &65361735035462062
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1629654265515494}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!65 &65437330152233612
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -191,12 +204,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4189137, y: 1.0000001, z: 1.0468363}
   m_Center: {x: 0.00029971456, y: 0.50000006, z: 0}
---- !u!114 &114675143148317902
+--- !u!114 &114543026448674752
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1078069556187384}
+  m_GameObject: {fileID: 1629654265515494}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dcd3861206120614cb75175c2f941908, type: 3}

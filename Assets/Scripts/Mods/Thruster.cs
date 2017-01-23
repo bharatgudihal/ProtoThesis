@@ -8,6 +8,10 @@ public class Thruster : Mod {
     [SerializeField, Range(10f,1000f)] float thrustForce; 
     bool canActivate=true;
 
+    private void Start()
+    {
+        type = ModTypes.JET_ENGINE;
+    }
 
     public override void Activate()
     {
