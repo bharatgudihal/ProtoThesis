@@ -15,11 +15,13 @@ public class ThirdPersonXRay : Mod
     // Use this for initialization
     void Start()
     {
+        type = ModTypes.X_RAY;
         playerCamera = Camera.main;
         objectLookingAt = null;
     }
     public override void Activate()
     {
+
         RaycastHit[] hits = Physics.RaycastAll(playerCamera.transform.position, playerCamera.transform.forward);
         foreach (RaycastHit hit in hits)
         {

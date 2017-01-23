@@ -13,6 +13,7 @@ public class Melee : Mod {
 	// Use this for initialization
 	void Start () {
         hitBox.enabled = false;
+        type = ModTypes.SWORD;
 	}
 	
 	// Update is called once per frame

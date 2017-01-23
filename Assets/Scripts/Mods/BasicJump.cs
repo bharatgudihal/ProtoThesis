@@ -43,6 +43,7 @@ public class BasicJump : Mod {
 
     // Use this for initialization
     void Start () {
+        type = ModTypes.JET_ENGINE;
         rigid.velocity = new Vector3(rigid.velocity.x, rigid.velocity.y + gravity * Time.deltaTime, rigid.velocity.z);
     }
 	

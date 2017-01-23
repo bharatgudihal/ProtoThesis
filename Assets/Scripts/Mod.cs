@@ -24,6 +24,8 @@ public abstract class Mod : MonoBehaviour
     public bool isAttached;
     [SerializeField] protected JoystickMovement joystickMovement;
 
+    public ModTypes type;
+
     public float health = 100f;
 
     public bool isEnabled;
@@ -49,9 +51,11 @@ public abstract class Mod : MonoBehaviour
                 (Input.GetButton(Controls.Left) && myModSpot == ModSpot.Left) ||
                 (Input.GetButton(Controls.Right) && myModSpot == ModSpot.Right)))
             {
-
                 Activate();
+                InterfaceManager.instance.FireModOnInterface(myModSpot);
                 Fatigue();
+                InterfaceManager.instance.SetFatigue(myModSpot, health);
+                //Interface manager pass health of mod
                 if (health <= 0)
                 {
                     Dettach();

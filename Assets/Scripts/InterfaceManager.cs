@@ -24,7 +24,7 @@ public enum ModTypes
 public class InterfaceManager : MonoBehaviour {
 
     [SerializeField]
-    Slider mod1AmmoSlider, mod2AmmoSlider, mod3AmmoSlider, mod4AmmoSlider;
+    Slider mod1FatigueCounter, mod2FatigueCounter, mod3FatigueCounter, mod4FatigueCounter;
 
     [SerializeField]
     Slider mod1CooldownSlider, mod2CooldownSlider, mod3CooldownSlider, mod4CooldownSlider;
@@ -78,25 +78,39 @@ public class InterfaceManager : MonoBehaviour {
     ModTypes slot3Type = ModTypes.NONE;
     ModTypes slot4Type = ModTypes.NONE;
 
-    #region UseCounters
+    #region Singleton
+
+    private static InterfaceManager _instance;
+
+    public static InterfaceManager instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
+
+    #endregion
+
+    #region fatigueCounters
 
     /// <summary>
     /// For designers
     /// </summary>
     [SerializeField]
-    int grenadeLauncherUses = 7;
+    int grenadeLauncherFatigueUses = 7;
     [SerializeField]
-    int mashotGunUses = 15;
+    int mashotGunFatigueUses = 15;
     [SerializeField]
-    int swordUseCount = 4;
+    int swordFatigueUses = 4;
     [SerializeField]
-    int jetUseCount = 7;
+    int jetFatigueUses = 7;
     [SerializeField]
-    int shieldUseCount = 5;
+    int shieldFatigueUses = 5;
     [SerializeField]
-    int xRayUseCount = 11;
+    int xRayFatigueUses = 11;
     [SerializeField]
-    int rocketLauncherUseCount = 10;
+    int rocketLauncherFatigueUses = 10;
 
     /// <summary>
     /// private references
@@ -116,19 +130,31 @@ public class InterfaceManager : MonoBehaviour {
 
     private void Awake()
     {
-        SetModTypeInSlot(ModSpot.Down, ModTypes.GRENADE_LAUNCHER);
+
+        //set up singleton
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else if (_instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+        SetModTypeInSlot(ModSpot.Down, ModTypes.NONE);
         SetModTypeInSlot(ModSpot.Left, ModTypes.NONE);
-        SetModTypeInSlot(ModSpot.Right, ModTypes.ROCKET_LAUNCHER);
-        SetModTypeInSlot(ModSpot.Up, ModTypes.SWORD);
+        SetModTypeInSlot(ModSpot.Right, ModTypes.NONE);
+        SetModTypeInSlot(ModSpot.Up, ModTypes.NONE);
         //Set initial state of counters
         UpdateCounterAndSprites(ModSpot.Down);
         UpdateCounterAndSprites(ModSpot.Left);
         UpdateCounterAndSprites(ModSpot.Right);
         UpdateCounterAndSprites(ModSpot.Up);
-        mod1AmmoSlider.value = masterMod1Counter;
-        mod2AmmoSlider.value = masterMod2Counter;
-        mod3AmmoSlider.value = masterMod3Counter;
-        mod4AmmoSlider.value = masterMod4Counter;
+        mod1FatigueCounter.value = masterMod1Counter;
+        mod2FatigueCounter.value = masterMod2Counter;
+        mod3FatigueCounter.value = masterMod3Counter;
+        mod4FatigueCounter.value = masterMod4Counter;
 
     }
 
@@ -141,22 +167,22 @@ public class InterfaceManager : MonoBehaviour {
 	void Update () {
         
         //TODO: This sorts of calls should go in the appropriate control manager
-        if (Input.GetKeyDown(KeyCode.Alpha1) && mod1Available)
-        {
-            FireModOnInterface(ModSpot.Down);
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha2) && mod2Available)
-        {
-            FireModOnInterface(ModSpot.Left);
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha3) && mod3Available)
-        {
-            FireModOnInterface(ModSpot.Right);
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha4) && mod4Available)
-        {
-            FireModOnInterface(ModSpot.Up);
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    FireModOnInterface(ModSpot.Down);
+        //}
+        //if(Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    FireModOnInterface(ModSpot.Left);
+        //}
+        //if(Input.GetKeyDown(KeyCode.Alpha3))
+        //{
+        //    FireModOnInterface(ModSpot.Right);
+        //}
+        //if(Input.GetKeyDown(KeyCode.Alpha4))
+        //{
+        //    FireModOnInterface(ModSpot.Up);
+        //}
 
     }
 
@@ -216,36 +242,36 @@ public class InterfaceManager : MonoBehaviour {
         switch (i_toActivate)
         {
             case ModSpot.Down:
-                if (mod1Counter <= 0)
+                if (mod1Counter <= 0 || !mod1Available)
                     return;
-                mod1Available = false;
-                mod1CooldownTimer = modCooldownTime;
-                mod1Counter--;
-                mod1AmmoSlider.value = mod1Counter / (float)masterMod1Counter;
+                //mod1Available = false;
+                //mod1CooldownTimer = modCooldownTime;
+                //mod1Counter--;
+                //mod1AmmoSlider.value = mod1Counter / (float)masterMod1Counter;
                 break;
             case ModSpot.Left:
-                if (mod2Counter <= 0)
+                if (mod2Counter <= 0 || !mod2Available)
                     return;
-                mod2Available = false;
-                mod2CooldownTimer = modCooldownTime;
-                mod2Counter--;
-                mod2AmmoSlider.value = mod2Counter / (float)masterMod2Counter;
+                //mod2Available = false;
+                //mod2CooldownTimer = modCooldownTime;
+                //mod2Counter--;
+                //mod2AmmoSlider.value = mod2Counter / (float)masterMod2Counter;
                 break;
             case ModSpot.Right:
-                if (mod3Counter <= 0)
+                if (mod3Counter <= 0 || !mod3Available)
                     return;
-                mod3Available = false;
-                mod3CooldownTimer = modCooldownTime;
-                mod3Counter--;
-                mod3AmmoSlider.value = mod3Counter / (float)masterMod3Counter;
+                //mod3Available = false;
+                //mod3CooldownTimer = modCooldownTime;
+                //mod3Counter--;
+                //mod3AmmoSlider.value = mod3Counter / (float)masterMod3Counter;
                 break;
             case ModSpot.Up:
-                if (mod4Counter <= 0)
+                if (mod4Counter <= 0 || !mod4Available)
                     return;
-                mod4Available = false;
-                mod4CooldownTimer = modCooldownTime;
-                mod4Counter--;
-                mod4AmmoSlider.value = mod4Counter / (float)masterMod4Counter;
+                //mod4Available = false;
+                //mod4CooldownTimer = modCooldownTime;
+                //mod4Counter--;
+                //mod4AmmoSlider.value = mod4Counter / (float)masterMod4Counter;
                 break;
 
         }
@@ -316,21 +342,21 @@ public class InterfaceManager : MonoBehaviour {
             case ModSpot.Left:
                 if (mod2Counter == 0 && slot2Type != ModTypes.NONE)
                 {
-                    mod2AmmoSlider.value = 0;
+                    mod2FatigueCounter.value = 0;
                     SetUnavailableSprite(i_toUpdate);
                 }
                 break;
             case ModSpot.Right:
                 if (mod3Counter == 0 && slot3Type != ModTypes.NONE)
                 {
-                    mod3AmmoSlider.value = 0;
+                    mod3FatigueCounter.value = 0;
                     SetUnavailableSprite(i_toUpdate);
                 }
                 break;
             case ModSpot.Up:
                 if (mod4Counter == 0 && slot4Type != ModTypes.NONE)
                 {
-                    mod4AmmoSlider.value = 0;
+                    mod4FatigueCounter.value = 0;
                     SetUnavailableSprite(i_toUpdate);
                 }
                 break;
@@ -339,7 +365,7 @@ public class InterfaceManager : MonoBehaviour {
     }
 
 
-    void SetModTypeInSlot(ModSpot i_toSet, ModTypes i_type)
+    public void SetModTypeInSlot(ModSpot i_toSet, ModTypes i_type)
     {
         switch (i_toSet)
         {
@@ -358,7 +384,7 @@ public class InterfaceManager : MonoBehaviour {
         }
 
         SetInitialReadySlotGraphic(i_toSet);
-        SetModCounter(i_toSet);
+        SetModAmmoCounter(i_toSet);
     }
 
     void SetInitialReadySlotGraphic(ModSpot i_toSet)
@@ -552,7 +578,7 @@ public class InterfaceManager : MonoBehaviour {
         }
     }
 
-    void SetModCounter(ModSpot i_toSet)
+    void SetModAmmoCounter(ModSpot i_toSet)
     {
         ModTypes typeToSet = ModTypes.NONE;
         int count = 0;
@@ -578,25 +604,25 @@ public class InterfaceManager : MonoBehaviour {
         switch (typeToSet)
         {
             case ModTypes.GRENADE_LAUNCHER:
-                count = grenadeLauncherUses;
+                count = grenadeLauncherFatigueUses;
                 break;
             case ModTypes.MASHOT_GUN:
-                count =  mashotGunUses;
+                count =  mashotGunFatigueUses;
                 break;
             case ModTypes.SWORD:
-                count = swordUseCount;
+                count = swordFatigueUses;
                 break;
             case ModTypes.JET_ENGINE:
-                count = jetUseCount;
+                count = jetFatigueUses;
                 break;
             case ModTypes.SHIELD:
-                count = shieldUseCount;
+                count = shieldFatigueUses;
                 break;
             case ModTypes.X_RAY:
-                count = xRayUseCount;
+                count = xRayFatigueUses;
                 break;
             case ModTypes.ROCKET_LAUNCHER:
-                count = rocketLauncherUseCount;
+                count = rocketLauncherFatigueUses;
                 break;
             case ModTypes.NONE:
                 count = 0;
@@ -631,4 +657,23 @@ public class InterfaceManager : MonoBehaviour {
 
     }
 
+    public void SetFatigue(ModSpot i_spot, float i_newFatigue)
+    {
+        switch (i_spot)
+        {
+            case ModSpot.Down:
+                mod1FatigueCounter.value = i_newFatigue;
+                break;
+            case ModSpot.Left:
+                mod2FatigueCounter.value = i_newFatigue;
+                break;
+            case ModSpot.Right:
+                mod3FatigueCounter.value = i_newFatigue;
+                break;
+            case ModSpot.Up:
+                mod4FatigueCounter.value = i_newFatigue;
+
+                break;
+        }
+    }
 }
