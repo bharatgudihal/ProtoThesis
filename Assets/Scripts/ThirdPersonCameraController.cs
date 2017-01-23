@@ -19,6 +19,9 @@ public class ThirdPersonCameraController : MonoBehaviour {
     [SerializeField]
     float sensitivity;
 
+    [SerializeField]
+    Transform dummyCamera;
+
     Transform lookAt;
     Vector3 followDistanceVector;
 
@@ -26,6 +29,9 @@ public class ThirdPersonCameraController : MonoBehaviour {
 
     float moveX;
     float moveY;
+    public bool isUpdating;
+    public Vector3 positionToMoveTo;
+    public Vector3 angleToRotateTo;
 
     private void Awake()
     {
@@ -44,7 +50,16 @@ public class ThirdPersonCameraController : MonoBehaviour {
         moveX = Mathf.Clamp(moveX, -maxY, maxY);
         //moveY = Mathf.Clamp(moveY, -maxX, maxX);
         Vector3 newPosition = lookAt.position + Quaternion.Euler(moveX, moveY, 0) * followDistanceVector;
-        transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
-        transform.LookAt(lookAt);
+        positionToMoveTo = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
+        dummyCamera.position = positionToMoveTo;
+        dummyCamera.LookAt(lookAt);
+        angleToRotateTo = dummyCamera.transform.rotation.eulerAngles;
+
+        if (isUpdating)
+        {
+
+            transform.position = positionToMoveTo;
+            transform.LookAt(lookAt);
+        }
     }
 }

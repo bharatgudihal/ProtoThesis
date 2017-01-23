@@ -6,7 +6,7 @@ public enum CameraMode
 {
     OVERHEAD = 0,
     SIDESCROLL = 1,
-    BEHINDBACK = 2
+    THIRDPERSON = 2
 }
 
 public class CameraLock : MonoBehaviour {
