@@ -5,7 +5,7 @@ using UnityEngine;
 public class Sin : MonoBehaviour {
 
 	[SerializeField] Rigidbody rigbod;
-    [SerializeField, Range(1f, 10f)] float paceLength;
+    [SerializeField, Range(1f, 20f)] float paceLength;
     [SerializeField, Range(0f, 10f)] float zVelocity;
     [SerializeField, Range(1f, 20f)] float yPeriod;
     [SerializeField, Range(1f, 5f)] float yAmplitude;
@@ -25,7 +25,7 @@ public class Sin : MonoBehaviour {
             ReverseDirection();
         }        
         float yVelocity = Mathf.Sin((2 * Mathf.PI / yPeriod) * Time.time) * yAmplitude;
-        rigbod.velocity = new Vector3(0f,yVelocity,zVelocity);
+        rigbod.velocity = transform.forward *zVelocity + Vector3.up * yVelocity;
 
     }
 
